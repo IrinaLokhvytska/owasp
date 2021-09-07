@@ -17,4 +17,7 @@ POSTGRES_HOST = os.environ['POSTGRES_HOST_OWASP']
 POSTGRES_PORT = os.environ['POSTGRES_PORT_OWASP']
 POSTGRES_DB = os.environ['POSTGRES_DB_OWASP']
 SQLALCHEMY_DATABASE_URI = f'postgresql+psycopg2://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}'
-INIT_DB = int(os.environ['INIT_DB'])
+
+# postgresql+psycopg2://owasp_user:LmYCWUWWyGQxfIZ@backend_secure_db:5433/backend_secure_db
+INIT_DB = int(os.environ['INIT_DB_OWASP'])
+SQLALCHEMY_TRACK_MODIFICATIONS = False

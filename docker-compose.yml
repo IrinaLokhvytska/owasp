@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   backend_secure:
-    env_file: ./backend_secure/database.conf
+    env_file:
+      - ./backend_secure/database.conf
+      - ./backend_secure/environment/development.env
     build: ./backend_secure
     restart: always
     container_name: backend_secure
@@ -10,17 +12,23 @@ services:
       - "5003:5003"
     depends_on:
       - backend_secure_db
+    links:
+      - backend_secure_db
     volumes:
       - ./backend_secure:/app
   
   backend:
-    env_file: ./backend/database.conf
+    env_file:
+      - ./backend/database.conf
+      - ./backend/environment/development.env
     build: ./backend
     restart: always
     container_name: backend
     ports:
       - "5004:5004"
     depends_on:
+      - backend_db
+    links:
       - backend_db
     volumes:
       - ./backend:/app
@@ -31,7 +39,7 @@ services:
     image: postgres:13.4
     env_file: ./backend_secure/database.conf
     ports:
-      - "5434:5434"
+      - "5961:5432"
   
   backend_db:
     container_name: backend_db
