@@ -1,7 +1,7 @@
 """ User db model """
 import datetime
 
-from web import app, db
+from web import db
 
 
 class User(db.Model):

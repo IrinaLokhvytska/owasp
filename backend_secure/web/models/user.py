@@ -3,8 +3,9 @@ import datetime
 import secrets
 
 from argon2 import PasswordHasher
+from flask import current_app as app
 
-from web import app, db
+from web import db
 
 
 class User(db.Model):
@@ -42,9 +43,9 @@ class User(db.Model):
         pepper = app.config["SECRET_KEY"]
         ph = PasswordHasher()
         pw_hash = ph.hash(password + salt + pepper)
-        return salt, pw_hash
+        return pw_hash
 
-    def is_correct_password(salt, password, salt):
+    def is_correct_password(password, salt):
         """
         Given a previously-stored salt and hash, and a password provided by a user
         trying to log in, check whether the password is correct.

@@ -6,20 +6,23 @@ from flask import (
 
 from web.models.user import User
 from web.helpers import check_login, login_page_message
+from web.forms.registration import LogInForm
 
 
 class LoginAPI(MethodView):
     """ View for the /login endpoint """
     def get(self):
         """ Get login page """
-        return render_template('login.html')
+        form = LogInForm(request.form)
+        return render_template('login.html', form=form)
 
     def post(self):
         """ Log in user """
-        email = request.form.get("email")
-        password = request.form.get("password")
-        user = User.query.filter_by(email=email).first()
-        if not user or not user.is_correct_password(password, user.salt):
+        form = LogInForm(request.form)
+        if not form.validate():
+            return render_template('login.html', form=form)
+        user = User.query.filter_by(email=form.email.data).first()
+        if not user or not user.is_correct_password(form.password.data, user.salt):
             return login_page_message("Invalid Email/password combination.")
         if not user.active:
             return login_page_message(
@@ -28,7 +31,7 @@ class LoginAPI(MethodView):
         session.permanent = True
         session["login"] = True
         session["user_id"] = user.id
-        return redirect(url_for("home")
+        return redirect(url_for("home"))
 
 
 class LogoutAPI(MethodView):

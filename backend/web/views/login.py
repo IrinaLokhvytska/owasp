@@ -27,7 +27,7 @@ class LoginAPI(MethodView):
         session.permanent = True
         session["login"] = True
         session["user_id"] = user.id
-        return redirect(url_for("home")
+        return redirect(url_for("home"))
 
 
 class LogoutAPI(MethodView):
