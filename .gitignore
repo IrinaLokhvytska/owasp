@@ -16,3 +16,11 @@ venv.bak/
 
 */database.conf
 */environment
+
+# Distribution / packaging
+.Python
+*.egg-info/
+.installed.cfg
+*.egg
+*.DS_Store
+MANIFEST

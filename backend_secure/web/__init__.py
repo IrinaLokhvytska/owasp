@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 
 from web.setup_app import create_app
+from web.routes import add_endpoints_to_app
 
 
 # Database
@@ -25,6 +26,5 @@ root.addHandler(sh)
 csrf = CSRFProtect()
 csrf.init_app(app)
 
-@app.route('/')
-def index():
-    return 'index'
+# add endpoints
+add_endpoints_to_app(app)

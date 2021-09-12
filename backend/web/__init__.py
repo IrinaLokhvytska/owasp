@@ -5,6 +5,7 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
 from web.setup_app import create_app
+from web.routes import add_endpoints_to_app
 
 
 app = create_app()
@@ -18,6 +19,5 @@ sh = logging.StreamHandler()
 sh.setLevel(logging.INFO)
 root.addHandler(sh)
 
-@app.route('/')
-def index():
-    return 'index'
+# add endpoints
+add_endpoints_to_app(app)
