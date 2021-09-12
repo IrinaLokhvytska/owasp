@@ -7,11 +7,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon" />
   <title>To Do List</title>
-  <script src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
+  <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  <!-- jQuery library -->
+  <script src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+  <!-- Popper JS -->
+  <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script type="text/javascript">
@@ -38,6 +44,24 @@
       </a>
     </div>
   </nav>
+
+  {% block body %} {% block menu %} {% endblock %}
+
+  <div id="main-div">
+    {# One-time system messages called Flash messages #} {% block
+    flash_messages %} {%- with messages =
+    get_flashed_messages(with_categories=true) -%} {% if messages %} {% for
+    category, message in messages %} {% if category=='error' %} {% set
+    category='danger' %} {% endif %}
+    <div class="alert alert-{{category}}">{{ message|safe }}</div>
+    {% endfor %} {% endif %} {%- endwith %} {% endblock %} {% block main %} {%
+    block content %}{% endblock %} {% endblock %}
+  </div>
+
+  <br />
+
+  {% endblock %} {# *** Allow sub-templates to insert extra html to the bottom
+  of the body *** #} {% block extra_js %}{% endblock %}
 
 
 </body>

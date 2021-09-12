@@ -1,0 +1,121 @@
+html,
+body {
+    height: 100%;
+}
+
+.center-form {
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-align: center;
+    -ms-flex-pack: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding-top: 150px;
+    padding-bottom: 40px;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 40%;
+    margin: 0 auto;
+}
+
+.form-signin .checkbox {
+    font-weight: 400;
+}
+
+.form-signin .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+a {
+    color: #337ab7;
+    text-decoration: none;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+
+.btn-login {
+    font-weight: 400;
+    color: #9b9b9b;
+    text-decoration: underline;
+}
+
+.costeng-login-subtitle {
+    color: #9b9b9b;
+    font-size: 120%;
+    padding-top: 15px;
+}
+
+.material-icons {
+    cursor: pointer;
+  }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+  
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+    background-color: darkgray;
+    color: black !important;
+}
+  
+textarea {
+    font-family: Consolas, Monaco, Lucida Console, Liberation Mono,
+      DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace !important;
+      font-size: small !important;
+}
+.modal-lg {
+    max-width: 90% !important;
+    overflow-x: auto;
+}
+  
+.small_font {
+    font-size: small;
+    word-wrap: break-word;
+}
+  
+.modal-error {
+    max-width: 70% !important;
+    overflow-x: auto;
+}
+  
+.btn-primary,
+.btn-outline-primary {
+    color: #337ab7;
+    background-color: transparent;
+    background-image: none;
+    border-color: #2e6da4;
+}
+.btn-link {
+    color: #2e6da4;
+    background-color: transparent;
+}

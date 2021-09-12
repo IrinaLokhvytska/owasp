@@ -5,7 +5,7 @@ class LoginAPI(MethodView):
     """ View for the /login endpoint """
     def get(self):
         """ Get login page """
-        return render_template('home.html')
+        return render_template('login.html')
 
     # def post(self):
     #     user = User.from_form_data(request.form)
