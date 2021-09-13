@@ -5,7 +5,7 @@ import secrets
 from argon2 import PasswordHasher
 from flask import current_app as app
 
-from web import db
+from web.models import db
 
 
 class User(db.Model):

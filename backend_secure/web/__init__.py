@@ -2,16 +2,15 @@
 import logging
 
 from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 
 from web.setup_app import create_app
+from web.models import db
 from web.routes import add_endpoints_to_app
 
 
 # Database
 app = create_app()
-db = SQLAlchemy()
 db.init_app(app)
 migrate = Migrate(app, db)
 
