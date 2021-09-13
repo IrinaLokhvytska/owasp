@@ -3,14 +3,23 @@ from flask import (
     render_template, session, request,
     redirect, url_for
 )
+from flask import current_app as app
 
 from web.models.user import User
+from web.models import db
 from web.helpers import check_login, login_page_message
 from web.forms.registration import LogInForm
 
 
 class LoginAPI(MethodView):
     """ View for the /login endpoint """
+    def _make_user_inactive_for_max_login_failure(user):
+        """ Make user inactive for the max login failure """
+        if session["login_attempt"] > app.config["MAX_LOGIN_FAILURE"]:
+            user.active = False
+            db.session.flush()
+            db.session.commit()
+
     def get(self):
         """ Get login page """
         form = LogInForm(request.form)
@@ -22,15 +31,22 @@ class LoginAPI(MethodView):
         if not form.validate():
             return render_template('login.html', form=form)
         user = User.query.filter_by(email=form.email.data).first()
-        if not user or not user.is_correct_password(form.password.data, user.salt):
-            return login_page_message("Invalid Email/password combination.")
+        login_error_msg = "Invalid Email/password combination."
+        if not user:
+            return login_page_message(login_error_msg)
+        self._make_user_inactive_for_max_login_failure(user)
+        if not user.is_correct_password(form.password.data, user.salt):
+            session["login_attempt"] = session.get('login_attempt', 0) + 1
+            return login_page_message(login_error_msg)
         if not user.active:
             return login_page_message(
                 "Inactive account. Please wait for activation from the admin."
             )
-        session.permanent = True
-        session["login"] = True
-        session["user_id"] = user.id
+        session.update({
+            "login_attempt": 0, 
+            "login": True,
+            "user_id": user.id
+        })
         return redirect(url_for("home"))
 
 
