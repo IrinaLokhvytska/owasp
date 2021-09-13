@@ -25,39 +25,12 @@
         <button type="button" class="btn btn-link btn-login" data-toggle="modal" data-target="#register-modal">
             Register
         </button>
-        <button type="button" class="btn btn-link btn-login" data-toggle="modal" data-target="#forgot-password-modal">
-            Forgot Password
-        </button>
     </form>
 </div>
 
 
 <!-- Modal -->
-<div class="modal fade" id="forgot-password-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Forgot Password</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form method="POST" action="./user/forgot-password">
-            <div class="form-group">
-                <label for="forgotemail">Email address</label>
-                <input type="email" class="form-control" id="forgotemail" name="email" aria-describedby="emailHelp"
-                placeholder="Enter email" required>
-                <small id="emailHelp" class="form-text text-muted">We will set a password and send it on your registered
-                email</small>
-            </div>
-            <button type="submit" class="btn btn-primary">Send</button>
-            </form>
-        </div>
-        </div>
-    </div>
-    </div>
-    <div class="modal fade" id="register-modal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+<div class="modal fade" id="register-modal" data-backdrop="static" data-keyboard="false" tabindex="-1"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -68,20 +41,8 @@
             </button>
         </div>
         <div class="modal-body">
-            <form method="POST" action="./user/register"
+            <form method="POST" action="/user"
             oninput='password2.setCustomValidity(password2.value != password.value ? "Passwords do not match." : "")'>
-            <div class="form-group row">
-                <label for="first_name" class="col-sm-3 col-form-label">First Name</label>
-                <div class="col-sm-9">
-                <input type="text" class="form-control" id="first_name" name="first_name" required>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="last_name" class="col-sm-3 col-form-label">Last Name</label>
-                <div class="col-sm-9">
-                <input type="text" class="form-control" id="last_name" name="last_name" required>
-                </div>
-            </div>
             <div class="form-group row">
                 <label for="email" class="col-sm-3 col-form-label">Email</label>
                 <div class="col-sm-9">

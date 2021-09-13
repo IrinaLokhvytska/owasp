@@ -1,8 +1,10 @@
 """ User db model """
 import datetime
 import secrets
+import string
 
 from argon2 import PasswordHasher
+from argon2.exceptions import VerifyMismatchError
 from flask import current_app as app
 
 from web.models import db
@@ -29,13 +31,13 @@ class User(db.Model):
         self.admin = admin
         self.active = active
     
-    def get_salt_for_new_password():
+    def get_salt_for_new_password(self):
         """ Get salt for new password """
         alphabet = string.ascii_letters + string.digits
         salt = ''.join(secrets.choice(alphabet) for i in range(8))
         return salt
     
-    def hash_new_password(password, salt):
+    def hash_new_password(self, password, salt):
         """
         Hash the provided password with a randomly-generated salt and return the
         salt and hash to store in the database.
@@ -45,11 +47,17 @@ class User(db.Model):
         pw_hash = ph.hash(password + salt + pepper)
         return pw_hash
 
-    def is_correct_password(password, salt):
+    def is_correct_password(self, password, salt):
         """
         Given a previously-stored salt and hash, and a password provided by a user
         trying to log in, check whether the password is correct.
         """
+        pepper = app.config["SECRET_KEY"]
         pw_hash = self.hash_new_password(password, salt)
+        salted_password = password + salt + pepper
         ph = PasswordHasher()
-        return ph.verify(pw_hash, password)
+        try:
+            ph.verify(pw_hash, salted_password)
+            return True
+        except VerifyMismatchError:
+            return False
