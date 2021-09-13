@@ -5,6 +5,7 @@ from flask import (
 )
 
 from web.models.user import User
+from web.models import db
 from web.helpers import check_login, login_page_message
 
 
@@ -18,10 +19,15 @@ class LoginAPI(MethodView):
         """ Log in user """
         email = request.form.get("email")
         password = request.form.get("password")
-        user = User.query.filter_by(email=email).first()
+        with db.engine.connect() as connection:
+            query = connection.execute(f"SELECT * FROM users WHERE email='{email}'")
+            user = query.first()
         if not user:
             return login_page_message("Invalid email")
-        user = User.query.filter_by(email=email, password=password).first()
+        with db.engine.connect() as connection:
+            query = connection.execute(f"SELECT * FROM users WHERE email='{email}' AND password='{password}'")
+            # query = connection.execute("SELECT * FROM users WHERE email=%(email)s AND password=%(password)s", {"email": email, "password": password})
+            user = query.first()
         if not user:
             return login_page_message("Invalid password")
         session.permanent = True
