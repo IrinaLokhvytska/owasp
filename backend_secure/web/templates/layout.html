@@ -42,6 +42,27 @@
       <a class="navbar-brand" href="/">
         <img src="{{ url_for('static', filename='images/logo.png') }}" alt="" width="90" height="30" class="d-inline-block align-top" />
       </a>
+      {% if user_id %}
+      <div>
+        <ul class="navbar-nav">
+          <li class="dropdown">
+            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+              <span class="material-icons">
+                settings
+              </span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="/user/{{user_id}}">User</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="/user/change_password">Change Password</a></li>
+              <li><a class="dropdown-item" href="/logout">Log out</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      {% endif %}
     </div>
   </nav>
 
