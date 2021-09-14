@@ -21,14 +21,14 @@ class LogInForm(Form):
 def validate_strong_password(form, field):
     """ Check if password is strong """
     special_characters = "@#$%^&+="
-    validation_error = "Password must contain:"
+    validation_error = "Password must contains:"
     password_checks = (
-        (re.compile(r"[a-z]+"), "atleast one lowercase character,"),
-        (re.compile(r"[A-Z]+"), "atleast one uppercase character,"),
-        (re.compile(r"[0-9]+"), "atleast one digit character,"),
+        (re.compile(r"[a-z]+"), "at least one lowercase character,"),
+        (re.compile(r"[A-Z]+"), "at least one uppercase character,"),
+        (re.compile(r"[0-9]+"), "at least one digit character,"),
         (
             re.compile(r"[@#$%^&+=]+"),
-            f"atleast one of these special characters: {special_characters}."
+            f"at least one of these special characters: {special_characters}."
         )
     )
     strong_password = True
@@ -55,5 +55,5 @@ class RegistrationForm(Form):
     )
     password2 = PasswordField('Confirm Password',
         [validators.DataRequired(),],
-        render_kw={"class": "form-control", "id": "password2", "placeholder": "Password"}
+        render_kw={"class": "form-control", "id": "password2", "placeholder": "Confirm Password"}
     )
