@@ -15,8 +15,10 @@ class RegistrationAPI(MethodView):
     """ Endpoints for the user API """
     def post(self):
         """ Register User """
+        email = request.form.get("email")
+        password = request.form.get("password")
         try:
-            user = User(email=request.form.email, password=request.form.password)
+            user = User(email=email, password=password)
             db.session.add(user)
             db.session.flush()
             db.session.commit()

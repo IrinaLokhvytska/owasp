@@ -17,6 +17,6 @@ class User(db.Model):
     def __init__(self, email, password, admin=False):
         """ Init User db model """
         self.email = email
-        self.password = self.password
+        self.password = password
         self.registered_on = datetime.datetime.now()
         self.admin = admin
