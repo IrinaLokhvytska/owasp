@@ -9,19 +9,14 @@ from sqlalchemy.exc import IntegrityError
 from web.models.user import User
 from web.models import db
 from web.helpers import check_login, login_page_message
-from web.forms.registration import RegistrationForm, LogInForm
 
 
 class RegistrationAPI(MethodView):
     """ Endpoints for the user API """
     def post(self):
         """ Register User """
-        form = LogInForm()
-        reg_form = RegistrationForm(request.form)
-        if not reg_form.validate():
-            return login_page_message(str(reg_form.errors))
         try:
-            user = User(email=reg_form.email.data, password=reg_form.password.data)
+            user = User(email=request.form.email, password=request.form.password)
             db.session.add(user)
             db.session.flush()
             db.session.commit()

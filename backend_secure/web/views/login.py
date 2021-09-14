@@ -19,6 +19,7 @@ class LoginAPI(MethodView):
             user.active = False
             db.session.flush()
             db.session.commit()
+            app.logger.error(f"{user.email} has reached the maximum sign in attempts.")
 
     def get(self):
         """ Get login page """
@@ -38,14 +39,13 @@ class LoginAPI(MethodView):
             return login_page_message(login_error_msg)
         if not user.active:
             return login_page_message(
-                "Inactive account. Please wait for activation from the admin."
+                "You’ve reached the maximum sign in attempts. Please contact the admin for activation."
             )
         self._make_user_inactive_for_max_login_failure(user)
         if not user.is_correct_password(form.password.data, user.salt):
             session["login_attempt"] = session.get('login_attempt', 0) + 1
             return login_page_message(login_error_msg)
         session.update({
-            "login_attempt": 0, 
             "login": True,
             "user_id": user.id
         })

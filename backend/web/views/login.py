@@ -30,7 +30,6 @@ class LoginAPI(MethodView):
             user = query.first()
         if not user:
             return login_page_message("Invalid password")
-        session.permanent = True
         session["login"] = True
         session["user_id"] = user.id
         return redirect(url_for("home"))
