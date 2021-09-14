@@ -16,18 +16,8 @@
     {% endwith %}
     <label for="inputEmail" class="sr-only">Email address</label>
     {{ form.email}}
-    {% if form.email.errors %}
-    {% for error in form.email.errors %}
-        <div class="alert alert-warning alert-dismissible fade show" role="alert"><strong>{{error}}</strong></div>
-    {% endfor %}
-    {% endif %}
     <label for="inputPassword" class="sr-only">Password</label>
     {{ form.password}}
-    {% if form.password.errors %}
-    {% for error in form.password.errors %}
-        <div class="alert alert-warning alert-dismissible fade show" role="alert"><strong>{{error}}</strong></div>
-    {% endfor %}
-    {% endif %}
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     <button type="button" class="btn btn-link btn-login" data-toggle="modal" data-target="#register-modal">
         Register
@@ -55,33 +45,18 @@
                 <label for="email" class="col-sm-3 col-form-label">Email</label>
                 <div class="col-sm-9">
                     {{ reg_form.email}}
-                    {% if reg_form.email.errors %}
-                    {% for error in reg_form.email.errors %}
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert"><strong>{{error}}</strong></div>
-                    {% endfor %}
-                    {% endif %}
                 </div>
             </div>
             <div class="form-group row">
                 <label for="password1" class="col-sm-3 col-form-label">Password</label>
                 <div class="col-sm-9">
                     {{ reg_form.password}}
-                    {% if reg_form.password.errors %}
-                    {% for error in reg_form.password.errors %}
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert"><strong>{{error}}</strong></div>
-                    {% endfor %}
-                    {% endif %}
                 </div>
             </div>
             <div class="form-group row">
                 <label for="password2" class="col-sm-3 col-form-label">Confirm Password</label>
                 <div class="col-sm-9">
                     {{ reg_form.password2}}
-                    {% if reg_form.password2.errors %}
-                    {% for error in reg_form.password2.errors %}
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert"><strong>{{error}}</strong></div>
-                    {% endfor %}
-                    {% endif %}
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Register</button>

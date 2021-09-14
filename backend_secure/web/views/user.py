@@ -18,7 +18,7 @@ class RegistrationAPI(MethodView):
         form = LogInForm()
         reg_form = RegistrationForm(request.form)
         if not reg_form.validate():
-            return render_template('login.html', form=form, reg_form=reg_form)
+            return login_page_message(str(reg_form.errors))
         user = User(email=reg_form.email.data, password=reg_form.password.data)
         db.session.add(user)
         db.session.flush()

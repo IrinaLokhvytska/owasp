@@ -31,7 +31,7 @@ class LoginAPI(MethodView):
         form = LogInForm(request.form)
         reg_form = RegistrationForm()
         if not form.validate():
-            return render_template('login.html', form=form, reg_form=reg_form)
+            return login_page_message(str(form.errors))
         user = User.query.filter_by(email=form.email.data).first()
         login_error_msg = "Invalid Email/password combination."
         if not user:
