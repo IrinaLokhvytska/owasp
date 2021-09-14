@@ -15,7 +15,7 @@ class LoginAPI(MethodView):
     """ View for the /login endpoint """
     def _make_user_inactive_for_max_login_failure(self, user):
         """ Make user inactive for the max login failure """
-        if session.get("login_attempt", 0) > app.config["MAX_LOGIN_FAILURE"]:
+        if session.get("login_attempt", 0) >= app.config["MAX_LOGIN_FAILURE"]:
             user.active = False
             db.session.flush()
             db.session.commit()

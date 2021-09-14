@@ -18,13 +18,26 @@ class LogInForm(Form):
         render_kw={"class": "form-control", "id": "inputPassword", "placeholder": "Password"}
     )
 
-
-def check_password(form, field):
+def validate_strong_password(form, field):
+    """ Check if password is strong """
     special_characters = "@#$%^&+="
-    if not re.fullmatch(r"[A-Za-z0-9@#$%^&+=]{8,25}", field.data):
-        error_msg = f"Password should contains uppercase and lowercase letters, \
-            numbers and any of the special characters: {special_characters}"
-        raise ValidationError(error_msg)
+    validation_error = "Password must contain:"
+    password_checks = (
+        (re.compile(r"[a-z]+"), "atleast one lowercase character,"),
+        (re.compile(r"[A-Z]+"), "atleast one uppercase character,"),
+        (re.compile(r"[0-9]+"), "atleast one digit character,"),
+        (
+            re.compile(r"[@#$%^&+=]+"),
+            f"atleast one of these special characters: {special_characters}."
+        )
+    )
+    strong_password = True
+    for (check, error_msg) in password_checks:
+        if not check.findall(field.data):
+            strong_password = False
+            validation_error = f"{validation_error} {error_msg}"
+    if not strong_password:
+        raise ValidationError(validation_error)
 
 
 class RegistrationForm(Form):
@@ -36,7 +49,7 @@ class RegistrationForm(Form):
     password = PasswordField('Password', [
         validators.DataRequired(),
         validators.Length(min=8, max=25),
-        check_password,
+        validate_strong_password,
         validators.EqualTo('password2', message='Passwords must match')],
         render_kw={"class": "form-control", "id": "password1", "placeholder": "Password"}
     )
