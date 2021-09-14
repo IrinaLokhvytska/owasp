@@ -53,11 +53,10 @@ class User(db.Model):
         trying to log in, check whether the password is correct.
         """
         pepper = app.config["SECRET_KEY"]
-        pw_hash = self.hash_new_password(password, salt)
         salted_password = password + salt + pepper
         ph = PasswordHasher()
         try:
-            ph.verify(pw_hash, salted_password)
+            ph.verify(self.password, salted_password)
             return True
         except VerifyMismatchError:
             return False
