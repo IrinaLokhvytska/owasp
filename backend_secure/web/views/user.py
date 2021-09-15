@@ -9,12 +9,14 @@ from sqlalchemy.exc import IntegrityError
 
 from web.models.user import User
 from web.models import db
-from web.helpers import check_login, login_page_message
+from web.helpers import (
+    check_login, login_page_message, check_user_permission
+)
 from web.forms.registration import RegistrationForm, LogInForm
 
 
 class RegistrationAPI(MethodView):
-    """ Endpoints for the user API """
+    """ Endpoints for the registration API """
     def post(self):
         """ Register User """
         form = LogInForm()
@@ -34,3 +36,17 @@ class RegistrationAPI(MethodView):
             db.session.rollback()
             return login_page_message("The user with this email already exists")
         return redirect(url_for("home"))
+
+
+class UserAPI(MethodView):
+    """ Endpoints for the user API """
+    @check_login
+    @check_user_permission
+    def get(self, user_id):
+        """ Get user info """
+        user = User.query.filter_by(id=user_id).first()
+        return render_template(
+            'user.html',
+            user_id=user_id,
+            user=user.get_user_info()
+        )

@@ -29,6 +29,18 @@ def check_user_role(func):
     return decorated_function
 
 
+def check_user_permission(func):
+    """ Check if user has permission to view data """
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        user_id = session.get("user_id", "")
+        if user_id != kwargs["user_id"]:
+            msg = "You do not have permission"
+            return {"error": msg}, 500
+        return func(*args, **kwargs)
+    return decorated_function
+
+
 def login_page_message(message):
     """ Login page message """
     flash(message)

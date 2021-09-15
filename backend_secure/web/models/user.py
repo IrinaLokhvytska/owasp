@@ -61,3 +61,13 @@ class User(db.Model):
             return True
         except VerifyMismatchError:
             return False
+    
+    def get_user_info(self):
+        """ Get user info """
+        return {
+            "id": self.id,
+            "email": self.email,
+            "registered_on": self.registered_on,
+            "role": "admin" if self.admin else "regular user",
+            "active": self.active
+        }
