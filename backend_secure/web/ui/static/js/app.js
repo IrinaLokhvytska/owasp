@@ -1,9 +1,16 @@
-$(document).ready(function () {
-    $('[id^="filter_input_"]').on("keyup", function () {
-        var table_id = $(this).attr("id").replace("filter_input_", "")
-        var value = $(this).val().toLowerCase();
-        $("#table_" + table_id + " tr").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-    });
-});
+function error_alert(msg) {
+    $('#show_alert #content').html(msg);
+    $('#show_alert #alert_body').removeClass();
+    $('#show_alert #alert_body').addClass("alert alert-danger");
+    $('#show_alert .modal-dialog').addClass("modal-error");
+    $('#show_alert').modal('show');
+
+}
+
+function look_for_error(response) {
+    let get_error_msg = jQuery.parseJSON(response.responseText)["error"]
+    if (get_error_msg) {
+        error_alert(get_error_msg)
+    }
+    return true
+}

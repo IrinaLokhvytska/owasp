@@ -38,7 +38,7 @@
             </button>
         </div>
         <div class="modal-body">
-            <form method="POST" action="/user"
+            <form method="POST" action="/user" id="user_registration"
             oninput='password2.setCustomValidity(password2.value != password.value ? "Passwords do not match." : "")'>
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
             <div class="form-group mt-2 row">
@@ -59,7 +59,7 @@
                     {{ reg_form.password2}}
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary" onclick="user_registration()">Register</button>
             </form>
         </div>
         </div>

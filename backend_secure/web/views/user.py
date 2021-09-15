@@ -1,3 +1,4 @@
+""" User registration """
 from flask.views import MethodView
 from flask import (
     render_template, session, request,

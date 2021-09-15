@@ -1,3 +1,4 @@
+""" Render home page """
 from collections import defaultdict
 
 from flask.views import MethodView
