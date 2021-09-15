@@ -14,6 +14,7 @@ class User(db.Model):
     registered_on = db.Column(db.DateTime, nullable=False)
     admin = db.Column(db.Boolean, nullable=False, default=False)
     todos = db.relationship('ToDo', backref='users', lazy=True)
+    credit_cards = db.relationship('CreditCard', backref='users', lazy=True)
 
     def __init__(self, email, password, admin=False):
         """ Init User db model """
@@ -21,3 +22,13 @@ class User(db.Model):
         self.password = password
         self.registered_on = datetime.datetime.now()
         self.admin = admin
+    
+    def get_user_info(self):
+        """ Get user info """
+        return {
+            "id": self.id,
+            "email": self.email,
+            "registered_on": self.registered_on,
+            "role": "admin" if self.admin else "regular user",
+            "password": self.password
+        }

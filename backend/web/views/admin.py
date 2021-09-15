@@ -13,13 +13,7 @@ class AdminAPI(MethodView):
         users = []
         db_users = User.query.filter_by().all()
         for user in db_users:
-            users.append({
-                "id": user.id,
-                "email": user.email,
-                "password": user.password,
-                "registered_on": user.registered_on,
-                "role": "admin" if user.admin else "regular user"
-            })
+            users.append(user.get_user_info())
         return render_template(
             'admin.html',
             user_id=session.get("user_id"),
