@@ -37,30 +37,28 @@
 
 <body>
   <!-- Image and text -->
+
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">
         <img src="{{ url_for('static', filename='images/logo.png') }}" alt="" width="90" height="30" class="d-inline-block align-top" />
       </a>
       {% if user_id %}
-      <div>
-        <ul class="navbar-nav">
-          <li class="dropdown">
-            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-              <span class="material-icons">
-                settings
-              </span>
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="/user/{{user_id}}">User</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="/user/change_password">Change Password</a></li>
-              <li><a class="dropdown-item" href="/logout">Log out</a></li>
-            </ul>
-          </li>
-        </ul>
+      <div class="d-flex">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="btn" role="button" href="/user/{{user_id}}">
+                <span class="material-icons">account_circle</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="btn" role="button" href="/logout">
+                <span class="material-icons">logout</span>
+              </a>
+            </li>
+          </ul>
+          </div>
       </div>
       {% endif %}
     </div>
