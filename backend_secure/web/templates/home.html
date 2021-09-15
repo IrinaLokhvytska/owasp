@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="mt-2 p-2">
+        <ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
+            {% for tab in todo_status %}
+            <li class="nav-item" role="presentation">
+                <a class="nav-link text-secondary border border-secondary {{ 'active' if loop.index == 1}}" id="home-tab" data-toggle="tab" href="#{{tab.id}}" role="tab"
+                    aria-controls="home" aria-selected="true">{{tab.name}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+
+</div>
+<div class="mt-3">
+    <div class="tab-content mt-3" id="myTabContent">
+        {% for tab in todo_status %}
+        <div class="tab-pane fade show {{ 'active' if loop.index == 1}}" id="{{tab.id}}" role="tabpanel" aria-labelledby="home-tab">
+            <div class="container mt-4 mb-4 p-1 bg-light">
+                <div class="row">
+                    <div class="col-11">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="filter_input_{{tab.id}}">Filter</label>
+                            </div>
+                            <input type="text" class="form-control " id="filter_input_{{tab.id}}">
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-link" onclick="edit_or_add_row('{{tab.id}}','new_row')">
+                            <span class="material-icons">post_add</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row container-fluid">
+                {% for todo_item in todo_list[tab.id] %}
+                    {% if loop.index % 4 == 0  %}
+                        </div>
+                        <br/>
+                        <br/>
+                        <div class="row container-fluid">
+                    {% endif %}
+                        <div class="col-4">
+                            <div class="card">
+                            <!-- <div class="card" style="width: 18rem; height: 25rem;"> -->
+                                <img src="static/{{todo_item.image}}" class="card-img-top" alt="ToDo">
+                                <div class="card-body">
+                                <p><small>{{todo_item.created_on}}</small></p>
+                                <a class="card-title" href="/todo/{{todo_item.id}}">{{todo_item.title}}</a>
+                                </div>
+                            </div>
+                        </div>
+                {% endfor %}
+                </div>
+            </div>
+            <!-- Button trigger modal -->
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -125,3 +125,11 @@ textarea {
     color: #5A4AE3;
     background-color: transparent;
 }
+
+.card {
+    height: 100%;
+    width: 100%;
+    max-width: 22rem;
+    max-height: 22rem;
+    border-color: #370df1;
+}

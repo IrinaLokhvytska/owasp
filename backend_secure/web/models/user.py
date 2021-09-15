@@ -21,6 +21,7 @@ class User(db.Model):
     registered_on = db.Column(db.DateTime, nullable=False)
     admin = db.Column(db.Boolean, nullable=False, default=False)
     active = db.Column(db.Boolean, nullable=False, default=True)
+    todos = db.relationship('ToDo', backref='users', lazy=True)
 
     def __init__(self, email, password, admin=False, active=True):
         """ Init User db model """
