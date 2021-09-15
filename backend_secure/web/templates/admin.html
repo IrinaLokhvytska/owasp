@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container-fluid">
+    <table class="table" aria-describedby="Tabs">
+        <thead>
+            <tr>
+                {% for column in users[0].keys() %}
+                    <th scope="col"><span title="{{column}}">{{column}}</span></th>
+                {% endfor %}
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id=table_user>
+            {% for user in users %}
+            <tr>
+                {% for user_key, user_val in user.items() %}
+                    <td><span title="{{user_key}}">{{user_val}}</span></td>
+                {% endfor %}
+                <td>
+                    <span class="material-icons">edit</span>
+                    <span class="material-icons">delete</span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
