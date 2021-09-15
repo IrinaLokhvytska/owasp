@@ -1,5 +1,5 @@
 from flask.views import MethodView
-from flask import render_template
+from flask import render_template, session
 
 from web.helpers import check_login
 
@@ -9,4 +9,4 @@ class HomeAPI(MethodView):
     @check_login
     def get(self):
         """ Get home page """
-        return render_template('layout.html')
+        return render_template('layout.html', user_id=session.get("user_id"))

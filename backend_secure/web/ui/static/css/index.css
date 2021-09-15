@@ -1,6 +1,7 @@
 html,
 body {
     height: 100%;
+    width: 100%;
 }
 
 .center-form {
@@ -21,6 +22,7 @@ body {
     width: 100%;
     max-width: 40%;
     margin: 0 auto;
+    border-color: #5A4AE3;
 }
 
 .form-signin .checkbox {
@@ -52,14 +54,18 @@ body {
 }
 
 a {
-    color: #337ab7;
+    color: #5A4AE3;
     text-decoration: none;
+}
+
+.border-warning {
+    border-color: #5A4AE3!important;
 }
 
 .btn-primary {
     color: #fff;
-    background-color: #337ab7;
-    border-color: #2e6da4;
+    background-color: #5A4AE3;
+    border-color: #370df1;
 }
 
 .btn-login {
@@ -110,12 +116,12 @@ textarea {
   
 .btn-primary,
 .btn-outline-primary {
-    color: #337ab7;
+    color: #5A4AE3;
     background-color: transparent;
     background-image: none;
-    border-color: #2e6da4;
+    border-color: #370df1;
 }
 .btn-link {
-    color: #2e6da4;
+    color: #5A4AE3;
     background-color: transparent;
 }
