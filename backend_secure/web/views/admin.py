@@ -1,3 +1,4 @@
+""" Admin page """
 from flask.views import MethodView
 from flask import render_template, session
 

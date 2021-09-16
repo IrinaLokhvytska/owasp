@@ -1,3 +1,4 @@
+""" Views for the /admin endpoint """
 from flask.views import MethodView
 from flask import render_template, session
 

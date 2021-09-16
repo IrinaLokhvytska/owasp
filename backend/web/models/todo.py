@@ -26,7 +26,7 @@ class ToDo(db.Model):
         self.priority = priority
         self.image = image
         self.user_id = user_id
-    
+
     def get_todo_dict(self):
         """ Convert priority and status, return dict """
         priority = {0: "low", 1: "medium", 2: "high"}

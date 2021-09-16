@@ -33,21 +33,23 @@ class User(db.Model):
         self.registered_on = datetime.datetime.now()
         self.admin = admin
         self.active = active
-    
-    def get_salt_for_new_password(self):
+
+    @staticmethod
+    def get_salt_for_new_password():
         """ Get salt for new password """
         alphabet = string.ascii_letters + string.digits
         salt = ''.join(secrets.choice(alphabet) for i in range(8))
         return salt
-    
-    def hash_new_password(self, password, salt):
+
+    @staticmethod
+    def hash_new_password(password, salt):
         """
         Hash the provided password with a randomly-generated salt and return the
         salt and hash to store in the database.
         """
         pepper = app.config["SECRET_KEY"]
-        ph = PasswordHasher()
-        pw_hash = ph.hash(password + salt + pepper)
+        pass_hasher = PasswordHasher()
+        pw_hash = pass_hasher.hash(password + salt + pepper)
         return pw_hash
 
     def is_correct_password(self, password, salt):
@@ -57,13 +59,13 @@ class User(db.Model):
         """
         pepper = app.config["SECRET_KEY"]
         salted_password = password + salt + pepper
-        ph = PasswordHasher()
+        pass_hasher = PasswordHasher()
         try:
-            ph.verify(self.password, salted_password)
+            pass_hasher.verify(self.password, salted_password)
             return True
         except VerifyMismatchError:
             return False
-    
+
     def get_user_info(self):
         """ Get user info """
         return {

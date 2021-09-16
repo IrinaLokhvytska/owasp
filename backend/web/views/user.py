@@ -1,16 +1,14 @@
+""" Endpoints for the user API """
 import datetime
 
 from flask.views import MethodView
 from flask import (
     render_template, session, request,
-    redirect, url_for, jsonify
+    jsonify
 )
-from flask import current_app as app
 from sqlalchemy.exc import IntegrityError
 
-from web.models import db 
-from web.models.user import User
-from web.models.credit_card import CreditCard
+from web.models import db
 from web.helpers import check_login
 
 
@@ -32,7 +30,11 @@ class RegistrationAPI(MethodView):
                 "user_id": user.fetchone()[0]
             })
         except IntegrityError:
-            return jsonify({"answer": "error", "msg": "The user with this email already exists"}), 500
+            return jsonify(
+                {
+                    "answer": "error",
+                    "msg": "The user with this email already exists"
+                }), 500
         return jsonify({"answer": "success"}), 200
 
 
@@ -44,7 +46,9 @@ class UserAPI(MethodView):
         # user/8;SELECT%20*%20FROM%20USERS
         with db.engine.connect() as connection:
             user = connection.execute(f"SELECT * FROM users WHERE id={user_id}").first()
-            credit_cards = connection.execute(f"SELECT * FROM credit_cards WHERE user_id={user_id}").all()
+            credit_cards = connection.execute(
+                f"SELECT * FROM credit_cards WHERE user_id={user_id}"
+            ).all()
         user_info = {
             "id": user.id,
             "email": user.email,

@@ -24,7 +24,7 @@ class User(db.Model):
         self.password = password
         self.registered_on = datetime.datetime.now()
         self.admin = admin
-    
+
     def get_user_info(self):
         """ Get user info """
         return {

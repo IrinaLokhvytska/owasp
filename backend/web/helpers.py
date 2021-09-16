@@ -1,7 +1,7 @@
+""" Helpers functions """
 from functools import wraps
 
 from flask import session, url_for, redirect
-from flask.helpers import flash
 
 from web.models.user import User
 

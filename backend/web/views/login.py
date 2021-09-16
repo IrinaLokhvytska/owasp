@@ -1,10 +1,10 @@
+""" View for the /login endpoint """
 from flask.views import MethodView
 from flask import (
     render_template, session, request,
     redirect, url_for, jsonify
 )
 
-from web.models.user import User
 from web.models import db
 from web.helpers import check_login
 
@@ -25,7 +25,9 @@ class LoginAPI(MethodView):
         if not user:
             return jsonify({"answer": "error", "msg": "Invalid email"}), 500
         with db.engine.connect() as connection:
-            query = connection.execute(f"SELECT * FROM users WHERE email='{email}' AND password='{password}'")
+            query = connection.execute(
+                f"SELECT * FROM users WHERE email='{email}' AND password='{password}'"
+            )
             # query = connection.execute("SELECT * FROM users WHERE email=%(email)s AND password=%(password)s", {"email": email, "password": password})
             user = query.first()
         if not user:

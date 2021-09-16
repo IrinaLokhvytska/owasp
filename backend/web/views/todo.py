@@ -1,14 +1,13 @@
+""" Endpoints for the todo API """
 from flask.views import MethodView
 from flask import (
-    render_template, session, request,
-    redirect, url_for
+    render_template, session
 )
-from flask import current_app as app
 from sqlalchemy.exc import IntegrityError
 
-from web.models import db 
-from web.models.todo import ToDo
+from web.models import db
 from web.helpers import check_login
+
 
 class ToDoAPI(MethodView):
     """ Endpoints for the todo API """
@@ -22,7 +21,7 @@ class ToDoAPI(MethodView):
             user_id=session.get("user_id"),
             todo_item=todo_item
         )
-    
+
     def delete(self, todo_id):
         """ Get todo item info """
         try:

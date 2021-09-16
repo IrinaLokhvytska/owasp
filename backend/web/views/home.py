@@ -1,3 +1,4 @@
+""" Views for the / endpoint """
 from collections import defaultdict
 
 from flask.views import MethodView

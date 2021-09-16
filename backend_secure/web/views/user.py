@@ -1,10 +1,8 @@
 """ User registration """
 from flask.views import MethodView
 from flask import (
-    render_template, session, request,
-    redirect, url_for, jsonify
+    render_template, session, request, jsonify
 )
-from flask import current_app as app
 from sqlalchemy.exc import IntegrityError
 
 from web.models import db
@@ -13,7 +11,7 @@ from web.models.credit_card import CreditCard
 from web.helpers import (
     check_login, check_user_permission
 )
-from web.forms.registration import RegistrationForm, LogInForm
+from web.forms.registration import RegistrationForm
 
 
 class RegistrationAPI(MethodView):
@@ -34,7 +32,11 @@ class RegistrationAPI(MethodView):
             })
         except IntegrityError:
             db.session.rollback()
-            return jsonify({"answer": "error", "msg": "The user with this email already exists"}), 500
+            return jsonify(
+                    {
+                        "answer": "error",
+                        "msg": "The user with this email already exists"
+                    }), 500
         return jsonify({"answer": "success"}), 200
 
 
