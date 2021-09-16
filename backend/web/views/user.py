@@ -1,3 +1,5 @@
+import datetime
+
 from flask.views import MethodView
 from flask import (
     render_template, session, request,
@@ -18,14 +20,16 @@ class RegistrationAPI(MethodView):
         """ Register User """
         email = request.json.get("email")
         password = request.json.get("password")
+        registered_on = datetime.datetime.now()
+        admin = False
         try:
             with db.engine.connect() as connection:
                 user = connection.execute(
-                    f"INSERT INTO users (email, password) VALUES ('{email}', '{password}')"
+                    f"INSERT INTO users (email, password, registered_on, admin) VALUES ('{email}', '{password}', '{registered_on}', '{admin}') RETURNING id"
                 )
             session.update({
                 "login": True,
-                "user_id": user.id
+                "user_id": user.fetchone()[0]
             })
         except IntegrityError:
             return jsonify({"answer": "error", "msg": "The user with this email already exists"}), 500
