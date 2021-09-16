@@ -2,18 +2,21 @@
 from collections import defaultdict
 
 from flask.views import MethodView
-from flask import render_template, session
+from flask import render_template, session, request, jsonify, redirect, url_for
 
-from web.helpers import check_login
+from web.helpers import check_user_token, check_user_token
 from web.models.todo import ToDo
 
 
 class HomeAPI(MethodView):
     """ Views for the / endpoint """
-    @check_login
     def get(self):
         """ Get home page """
-        user_id = session.get("user_id")
+        jwt_payload = check_user_token()
+        if "answer" in jwt_payload:
+            return redirect(url_for("login"))
+        print(jwt_payload)
+        user_id = jwt_payload.get("user_id")
         todo_status = [
             {"id": "todo", "name": "To Do"},
             {"id": "in_progress", "name": "In Progress"},

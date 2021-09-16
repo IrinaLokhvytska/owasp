@@ -2,13 +2,14 @@
 from flask.views import MethodView
 from flask import (
     render_template, session, request,
-    redirect, url_for, jsonify
+    redirect, url_for, jsonify,
+    make_response
 )
 from flask import current_app as app
 
 from web.models.user import User
 from web.models import db
-from web.helpers import check_login
+from web.helpers import check_user_token, create_user_token
 from web.forms.registration import LogInForm, RegistrationForm
 
 
@@ -47,19 +48,13 @@ class LoginAPI(MethodView):
         if not user.is_correct_password(form.password.data, user.salt):
             session["login_attempt"] = session.get('login_attempt', 0) + 1
             return jsonify({"answer": "error", "msg": login_error_msg}), 500
-        session.update({
-            "login": True,
-            "user_id": user.id
-        })
-        return redirect(url_for("home"))
+        session.pop("login_attempt", None)
+        token = create_user_token(user.id, user.email)
+        return jsonify({"answer": "success", "token": token}), 200
 
 
 class LogoutAPI(MethodView):
     """ Logout view """
-    @check_login
     def get(self):
         """ Log out user """
-        session.pop("login_attempt", None)
-        session.pop("login", None)
-        session.pop("user_id", None)
         return redirect(url_for("login"))

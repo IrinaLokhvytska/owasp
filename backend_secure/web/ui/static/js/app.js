@@ -22,14 +22,16 @@ function user_register() {
             data: user_data,
             success: function (response, textStatus) {
                 if (textStatus == "success") {
+                    let token = JSON.parse(response)["token"]
+                    document.cookie = "token=" + token + "; max-age=3600";
                     window.location = '/';
                 } else {
-                    let response_msg = jQuery.parseJSON(response.responseText)
+                    let response_msg = JSON.parse(response.responseTex)
                     error_alert(response_msg['msg'], "#user_registration")
                 }
             },
             error: function (response) {
-                let response_msg = jQuery.parseJSON(response.responseText)
+                let response_msg = JSON.parse(response.responseTex)
                 error_alert(response_msg['msg'], "#user_registration")
     
             },
@@ -52,14 +54,16 @@ function user_login() {
         data: user_data,
         success: function (response, textStatus) {
             if (textStatus == "success") {
+                let token = JSON.parse(response)["token"]
+                document.cookie = "token=" + token + "; max-age=3600";
                 window.location = '/';
             } else {
-                let response_msg = jQuery.parseJSON(response.responseText)
+                let response_msg = JSON.parse(response.responseTex)
                 error_alert(response_msg['msg'], "#user_login")
             }
         },
         error: function (response) {
-            let response_msg = jQuery.parseJSON(response.responseText)
+            let response_msg = JSON.parse(response.responseTex)
             error_alert(response_msg['msg'], "#user_login")
 
         },
@@ -67,4 +71,9 @@ function user_login() {
         mimeType: "multipart/form-data",
         processData: false,
     });
+}
+
+function user_logout() {
+    document.cookie = "token=''; max-age=-1";
+    window.location = '/logout';
 }

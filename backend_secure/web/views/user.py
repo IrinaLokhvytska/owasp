@@ -11,7 +11,8 @@ from web.models import db
 from web.models.user import User
 from web.models.credit_card import CreditCard
 from web.helpers import (
-    check_login, check_user_permission
+    create_user_token,
+    check_user_token
 )
 from web.forms.registration import RegistrationForm, LogInForm
 
@@ -28,22 +29,22 @@ class RegistrationAPI(MethodView):
             db.session.add(user)
             db.session.flush()
             db.session.commit()
-            session.update({
-                "login": True,
-                "user_id": user.id
-            })
         except IntegrityError:
             db.session.rollback()
             return jsonify({"answer": "error", "msg": "The user with this email already exists"}), 500
-        return jsonify({"answer": "success"}), 200
+        token = create_user_token(user.id, user.email)
+        return jsonify({"answer": "success", "token": token}), 200
 
 
 class UserAPI(MethodView):
     """ Endpoints for the user API """
-    @check_login
-    @check_user_permission
     def get(self, user_id):
         """ Get user info """
+        jwt_payload = check_user_token()
+        if "answer" in jwt_payload:
+            return redirect(url_for("login"))
+        if jwt_payload.get("user_id") != user_id:
+            return jsonify({"answer": "error", "msg": "You do not have permission"}), 500
         user = User.query.filter_by(id=user_id).first()
         credit_cards = CreditCard.query.filter_by(user_id=user_id).all()
         credit_cards_info = []

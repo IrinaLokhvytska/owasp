@@ -8,3 +8,4 @@ Jinja2==3.0.1
 Flask-WTF==0.15.1
 argon2-cffi==21.1.0
 WTForms[email]==2.3.3
+PyJWT==2.1.0
