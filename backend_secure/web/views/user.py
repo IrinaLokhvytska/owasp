@@ -2,7 +2,7 @@
 from flask.views import MethodView
 from flask import (
     render_template, session, request,
-    redirect, url_for
+    redirect, url_for, jsonify
 )
 from flask import current_app as app
 from sqlalchemy.exc import IntegrityError
@@ -17,13 +17,12 @@ from web.forms.registration import RegistrationForm, LogInForm
 
 
 class RegistrationAPI(MethodView):
-    """ Endpoints for the registration API """
+    """ Endpoints for the user API """
     def post(self):
         """ Register User """
-        form = LogInForm()
         reg_form = RegistrationForm(request.form)
         if not reg_form.validate():
-            return login_page_message(str(reg_form.errors))
+            return jsonify({"answer": "error", "msg": str(reg_form.errors)}), 500
         try:
             user = User(email=reg_form.email.data, password=reg_form.password.data)
             db.session.add(user)
@@ -35,8 +34,8 @@ class RegistrationAPI(MethodView):
             })
         except IntegrityError:
             db.session.rollback()
-            return login_page_message("The user with this email already exists")
-        return redirect(url_for("home"))
+            return jsonify({"answer": "error", "msg": "The user with this email already exists"}), 500
+        return jsonify({"answer": "success"}), 200
 
 
 class UserAPI(MethodView):

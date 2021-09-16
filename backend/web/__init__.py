@@ -1,7 +1,9 @@
 """ Initialize the application """
 import logging
+import traceback
 
 from flask_migrate import Migrate
+from flask import jsonify
 
 from web.setup_app import create_app
 from web.routes import add_endpoints_to_app
@@ -20,3 +22,11 @@ root.addHandler(sh)
 
 # add endpoints
 add_endpoints_to_app(app)
+
+@app.errorhandler(Exception)
+def error_handler(exc):
+    """ Error Handler """
+    code = 500
+    app.logger.error(traceback.format_exc())
+    msg = getattr(exc, "message", str(exc))
+    return jsonify({"answer": "error", "msg": msg}), code

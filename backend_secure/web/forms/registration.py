@@ -51,7 +51,7 @@ class RegistrationForm(Form):
         validators.Length(min=8, max=25),
         validate_strong_password,
         validators.EqualTo('password2', message='Passwords must match')],
-        render_kw={"class": "form-control", "id": "password1", "placeholder": "Password"}
+        render_kw={"class": "form-control", "id": "password", "placeholder": "Password"}
     )
     password2 = PasswordField('Confirm Password',
         [validators.DataRequired(),],

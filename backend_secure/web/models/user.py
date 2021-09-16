@@ -6,6 +6,7 @@ import string
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError
 from flask import current_app as app
+from sqlalchemy.sql import func
 
 from web.models import db
 
@@ -18,7 +19,7 @@ class User(db.Model):
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     salt = db.Column(db.String(255), nullable=False)
-    registered_on = db.Column(db.DateTime, nullable=False)
+    registered_on = db.Column(db.DateTime, nullable=False, default=func.now())
     admin = db.Column(db.Boolean, nullable=False, default=False)
     active = db.Column(db.Boolean, nullable=False, default=True)
     todos = db.relationship('ToDo', backref='users', lazy=True)

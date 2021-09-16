@@ -2,26 +2,22 @@
 {% block content %}
 <div class="center-form">
     <form class="form-signin bg-light p-5 border border-warning rounded text-center" method="POST" action="/login">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    <p class="costeng-login-subtitle">TO DO LIST</p>
-    <hr>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    <ul class=flashes>
-        {% for category, message in messages %}
-        <div class="alert alert-warning alert-dismissible fade show" role="alert"><strong>{{message}}</strong></div>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
-    <label for="inputEmail" class="sr-only">Email address</label>
-    {{ form.email}}
-    <label for="inputPassword" class="sr-only">Password</label>
-    {{ form.password}}
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    <button type="button" class="btn btn-link btn-login" data-toggle="modal" data-target="#register-modal">
-        Register
-    </button>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <p class="costeng-login-subtitle">TO DO LIST</p>
+        <hr>
+        <div class="alert alert-error alert-dismissible fade show" id="show_alert" role="alert">
+            <div id="alert_body" style="margin-bottom: 0px;">
+                <p id="content"></p>
+            </div>
+        </div>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        {{ form.email}}
+        <label for="inputPassword" class="sr-only">Password</label>
+        {{ form.password}}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button type="button" class="btn btn-link btn-login" data-toggle="modal" data-target="#register-modal">
+            Register
+        </button>
     </form>
 </div>
 
@@ -38,9 +34,13 @@
             </button>
         </div>
         <div class="modal-body">
-            <form method="POST" action="/user" id="user_registration"
-            oninput='password2.setCustomValidity(password2.value != password.value ? "Passwords do not match." : "")'>
+            <form method="POST" id="user_registration" oninput='password2.setCustomValidity(password2.value != password.value ? "Passwords do not match." : "")'>
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <div class="alert alert-error alert-dismissible fade show" id="show_alert" role="alert">
+                <div id="alert_body" style="margin-bottom: 0px;">
+                    <p id="content"></p>
+                </div>
+            </div>
             <div class="form-group mt-2 row">
                 <label for="email" class="col-sm-3 col-form-label">Email</label>
                 <div class="col-sm-9">
@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="form-group mt-2 row">
-                <label for="password1" class="col-sm-3 col-form-label">Password</label>
+                <label for="password" class="col-sm-3 col-form-label">Password</label>
                 <div class="col-sm-9">
                     {{ reg_form.password}}
                 </div>
@@ -59,7 +59,7 @@
                     {{ reg_form.password2}}
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary" onclick="user_registration()">Register</button>
+            <button type="button" class="btn btn-primary" onclick="user_register()">Register</button>
             </form>
         </div>
         </div>
