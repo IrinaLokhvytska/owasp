@@ -1,19 +1,7 @@
-function warning_alert(msg) {
-    $('#show_alert #content').html(msg);
-    $('#show_alert #alert_body').removeClass();
-    $('#show_alert #alert_body').addClass("alert alert-warning");
-
-}
-function success_alert(msg) {
-    $('#show_alert #content').html(msg);
-    $('#show_alert #alert_body').removeClass();
-    $('#show_alert #alert_body').addClass("alert alert-success");
-
-}
-function error_alert(msg) {
-    $('#show_alert #content').html(msg);
-    $('#show_alert #alert_body').removeClass();
-    $('#show_alert #alert_body').addClass("alert alert-danger");
+function error_alert(msg, form_id) {
+    console.error(msg)
+    $(form_id +' #show_alert').addClass("show");
+    $(form_id +' #show_alert #content').html(msg);
 
 }
 
@@ -26,23 +14,23 @@ function user_register() {
     user_data.append("password", password);
     user_data.append("password2", password2);
     if (password != password2) {
-        error_alert("Passwords do not match.")
+        error_alert("Passwords do not match.", "#user_registration")
     } else {
         $.ajax({
             type: "POST",
             url: "/user",
             data: user_data,
-            success: function (response) {
-                let response_msg = jQuery.parseJSON(response.responseText)
-                if (response_msg['answer'] == "success") {
-                    console.log(response_msg['answer'])
+            success: function (response, textStatus) {
+                if (textStatus == "success") {
+                    window.location = '/';
                 } else {
-                    error_alert(response_msg['msg'])
+                    let response_msg = jQuery.parseJSON(response.responseText)
+                    error_alert(response_msg['msg'], "#user_registration")
                 }
             },
             error: function (response) {
                 let response_msg = jQuery.parseJSON(response.responseText)
-                error_alert(response_msg['msg'])
+                error_alert(response_msg['msg'], "#user_registration")
     
             },
             contentType: false,

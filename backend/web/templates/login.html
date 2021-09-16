@@ -4,16 +4,15 @@
     <form class="form-signin bg-light p-5 border border-warning rounded text-center" method="POST" action="/login">
         <p class="costeng-login-subtitle">TO DO LIST</p>
         <hr>
-        <div class="alert alert-error alert-dismissible fade show" id="show_alert" role="alert">
-            <div id="alert_body" style="margin-bottom: 0px;">
-                <p id="content"></p>
-            </div>
-        </div>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required
             autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
+
+        <div class="alert alert-danger alert-dismissible fade" id="show_alert" role="alert">
+            <strong id="content"></strong>
+        </div>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         <button type="button" class="btn btn-link btn-login" data-toggle="modal" data-target="#register-modal">
@@ -35,12 +34,7 @@
             </button>
         </div>
         <div class="modal-body">
-            <form method="POST" oninput='password2.setCustomValidity(password2.value != password.value ? "Passwords do not match." : "")'>
-            <div class="alert alert-error alert-dismissible fade show" id="show_alert" role="alert">
-                <div id="alert_body" style="margin-bottom: 0px;">
-                    <p id="content"></p>
-                </div>
-            </div>
+            <form method="POST" id= "user_registration" oninput='password2.setCustomValidity(password2.value != password.value ? "Passwords do not match." : "")'>
             <div class="form-group mt-2 row">
                 <label for="email" class="col-sm-3 col-form-label">Email</label>
                 <div class="col-sm-9">
@@ -60,6 +54,9 @@
                 <input type="password" class="form-control" id="password2" placeholder="Confirm Password" name="password2"
                     required>
                 </div>
+            </div>
+            <div class="alert alert-danger alert-dismissible fade" id="show_alert" role="alert">
+                <strong id="content"></strong>
             </div>
             <button type="button" class="btn btn-primary" onclick="user_register()">Register</button>
             </form>
