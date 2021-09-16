@@ -1,12 +1,12 @@
 from flask.views import MethodView
 from flask import (
     render_template, session, request,
-    redirect, url_for
+    redirect, url_for, jsonify
 )
 
 from web.models.user import User
 from web.models import db
-from web.helpers import check_login, login_page_message
+from web.helpers import check_login
 
 
 class LoginAPI(MethodView):
@@ -23,16 +23,16 @@ class LoginAPI(MethodView):
             query = connection.execute(f"SELECT * FROM users WHERE email='{email}'")
             user = query.first()
         if not user:
-            return login_page_message("Invalid email")
+            return jsonify({"answer": "error", "msg": "Invalid email"}), 500
         with db.engine.connect() as connection:
             query = connection.execute(f"SELECT * FROM users WHERE email='{email}' AND password='{password}'")
             # query = connection.execute("SELECT * FROM users WHERE email=%(email)s AND password=%(password)s", {"email": email, "password": password})
             user = query.first()
         if not user:
-            return login_page_message("Invalid password")
+            return jsonify({"answer": "error", "msg": "Invalid password"}), 500
         session["login"] = True
         session["user_id"] = user.id
-        return redirect(url_for("home"))
+        return jsonify({"answer": "success"}), 200
 
 
 class LogoutAPI(MethodView):

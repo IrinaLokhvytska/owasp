@@ -27,9 +27,3 @@ def check_user_role(func):
             return {"error": msg}, 500
         return func(*args, **kwargs)
     return decorated_function
-
-
-def login_page_message(message):
-    """ Login page message """
-    flash(message)
-    return redirect(url_for("login"))

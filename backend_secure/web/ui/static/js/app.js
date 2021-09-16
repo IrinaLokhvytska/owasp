@@ -39,3 +39,32 @@ function user_register() {
         });
     }
 }
+
+function user_login() {
+    let user_data = new FormData();
+    let email = $("#user_login input[name=email]").val()
+    let password = $("#user_login input[name=password]").val()
+    user_data.append("email", email);
+    user_data.append("password", password);
+    $.ajax({
+        type: "POST",
+        url: "/login",
+        data: user_data,
+        success: function (response, textStatus) {
+            if (textStatus == "success") {
+                window.location = '/';
+            } else {
+                let response_msg = jQuery.parseJSON(response.responseText)
+                error_alert(response_msg['msg'], "#user_login")
+            }
+        },
+        error: function (response) {
+            let response_msg = jQuery.parseJSON(response.responseText)
+            error_alert(response_msg['msg'], "#user_login")
+
+        },
+        contentType: false,
+        mimeType: "multipart/form-data",
+        processData: false,
+    });
+}

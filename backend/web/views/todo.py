@@ -8,7 +8,7 @@ from sqlalchemy.exc import IntegrityError
 
 from web.models import db 
 from web.models.todo import ToDo
-from web.helpers import check_login, login_page_message
+from web.helpers import check_login
 
 class ToDoAPI(MethodView):
     """ Endpoints for the todo API """

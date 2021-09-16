@@ -36,3 +36,30 @@ function user_register() {
         });
     }
 }
+
+function user_login() {
+    let user_data = {
+        email: $("#user_login #email").val(),
+        password: $("#user_login #password").val(),
+    };
+    $.ajax({
+        type: "POST",
+        url: "/login",
+        data: JSON.stringify({"email": user_data["email"], "password": user_data["password"]}),
+        success: function (response, textStatus) {
+            if (textStatus == "success") {
+                window.location = '/';
+            } else {
+                let response_msg = jQuery.parseJSON(response.responseText)
+                error_alert(response_msg['msg'], "#user_login")
+            }
+        },
+        error: function (response) {
+            let response_msg = jQuery.parseJSON(response.responseText)
+            error_alert(response_msg['msg'], "#user_login")
+
+        },
+        contentType: "application/json",
+        dataType: "json",
+    });
+}

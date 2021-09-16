@@ -9,7 +9,7 @@ from sqlalchemy.exc import IntegrityError
 from web.models import db 
 from web.models.user import User
 from web.models.credit_card import CreditCard
-from web.helpers import check_login, login_page_message
+from web.helpers import check_login
 
 
 class RegistrationAPI(MethodView):
