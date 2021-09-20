@@ -1,7 +1,7 @@
 import re
 
 from wtforms import (
-    Form, StringField, PasswordField, validators,
+    Form, PasswordField, validators,
     ValidationError
 )
 from wtforms.fields.html5 import EmailField
