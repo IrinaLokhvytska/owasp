@@ -50,12 +50,9 @@ class UserAPI(MethodView):
         credit_cards = CreditCard.query.filter_by(user_id=user_id).all()
         credit_cards_info = []
         for credit_card in credit_cards:
-            credit_cards_info.append({
-                "credit_card_id": credit_card.id,
-                "credit_card_number": credit_card.credit_card_number,
-                "credit_card_cvv": credit_card.credit_card_cvv,
-                "credit_card_date": credit_card.credit_card_date,
-            })
+            credit_cards_info.append(
+                credit_card.get_card_info()
+            )
         return render_template(
             'user.html',
             user_id=user_id,
