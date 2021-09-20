@@ -1,4 +1,4 @@
-""" Views for the / endpoint """
+"""Views for the / endpoint"""
 from collections import defaultdict
 
 from flask.views import MethodView
@@ -9,10 +9,10 @@ from web.models.todo import ToDo
 
 
 class HomeAPI(MethodView):
-    """ Views for the / endpoint """
+    """Views for the / endpoint"""
     @check_login
     def get(self):
-        """ Get home page """
+        """Get home page"""
         user_id = session.get("user_id")
         todo_status = [
             {"id": "todo", "name": "To Do"},

@@ -1,4 +1,4 @@
-""" Endpoints for the user API """
+"""Endpoints for the user API"""
 import datetime
 
 from flask.views import MethodView
@@ -13,9 +13,9 @@ from web.helpers import check_login
 
 
 class RegistrationAPI(MethodView):
-    """ Endpoints for the user API """
+    """Endpoints for the user API"""
     def post(self):
-        """ Register User """
+        """Register User"""
         email = request.json.get("email")
         password = request.json.get("password")
         registered_on = datetime.datetime.now()
@@ -39,10 +39,10 @@ class RegistrationAPI(MethodView):
 
 
 class UserAPI(MethodView):
-    """ Endpoints for the user API """
+    """Endpoints for the user API"""
     @check_login
     def get(self, user_id):
-        """ Get user info """
+        """Get user info"""
         # user/8;SELECT%20*%20FROM%20USERS
         with db.engine.connect() as connection:
             user = connection.execute(f"SELECT * FROM users WHERE id={user_id}").first()

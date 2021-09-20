@@ -1,4 +1,4 @@
-""" User registration """
+"""User registration"""
 from flask.views import MethodView
 from flask import (
     render_template, session, request, jsonify
@@ -15,9 +15,9 @@ from web.forms.registration import RegistrationForm
 
 
 class RegistrationAPI(MethodView):
-    """ Endpoints for the user API """
+    """Endpoints for the user API"""
     def post(self):
-        """ Register User """
+        """Register User"""
         reg_form = RegistrationForm(request.form)
         if not reg_form.validate():
             return jsonify({"answer": "error", "msg": str(reg_form.errors)}), 500
@@ -41,11 +41,11 @@ class RegistrationAPI(MethodView):
 
 
 class UserAPI(MethodView):
-    """ Endpoints for the user API """
+    """Endpoints for the user API"""
     @check_login
     @check_user_permission
     def get(self, user_id):
-        """ Get user info """
+        """Get user info"""
         user = User.query.filter_by(id=user_id).first()
         credit_cards = CreditCard.query.filter_by(user_id=user_id).all()
         credit_cards_info = []

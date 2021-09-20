@@ -1,11 +1,11 @@
-""" To Do List db model """
+"""To Do List db model"""
 import datetime
 
 from web.models import db
 
 
 class ToDo(db.Model):
-    """ ToDo Model for storing todo list related details """
+    """ToDo Model for storing todo list related details"""
     __tablename__ = "todo_list"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -18,7 +18,7 @@ class ToDo(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     def __init__(self, title, description, image, user_id, status=0, priority=0):
-        """ Init ToDo db model """
+        """Init ToDo db model"""
         self.title = title
         self.description = description
         self.created_on = datetime.datetime.now()
@@ -28,7 +28,7 @@ class ToDo(db.Model):
         self.user_id = user_id
 
     def get_todo_dict(self):
-        """ Convert priority and status, return dict """
+        """Convert priority and status, return dict"""
         priority = {0: "low", 1: "medium", 2: "high"}
         status = {0: "todo", 1: "in_progress", 2: "done"}
         return {

@@ -1,4 +1,4 @@
-""" Admin page """
+"""Admin page"""
 from flask.views import MethodView
 from flask import render_template, session
 
@@ -7,11 +7,11 @@ from web.models.user import User
 
 
 class AdminAPI(MethodView):
-    """ Views for the /admin endpoint """
+    """Views for the /admin endpoint"""
     @check_login
     @check_user_role
     def get(self):
-        """ Get admin page """
+        """Get admin page"""
         users = []
         db_users = User.query.filter_by().all()
         for user in db_users:

@@ -1,4 +1,4 @@
-""" Helpers functions """
+"""Helpers functions"""
 from functools import wraps
 
 from flask import session, url_for, redirect
@@ -7,7 +7,7 @@ from web.models.user import User
 
 
 def check_login(func):
-    """ Check if user is authorized """
+    """Check if user is authorized"""
     @wraps(func)
     def decorated_function(*args, **kwargs):
         if not session.get("login", False):
@@ -17,7 +17,7 @@ def check_login(func):
 
 
 def check_user_role(func):
-    """ Check if user has permission to view data """
+    """Check if user has permission to view data"""
     @wraps(func)
     def decorated_function(*args, **kwargs):
         user_id = session.get("user_id", "")
@@ -30,7 +30,7 @@ def check_user_role(func):
 
 
 def check_user_permission(func):
-    """ Check if user has permission to view data """
+    """Check if user has permission to view data"""
     @wraps(func)
     def decorated_function(*args, **kwargs):
         user_id = session.get("user_id", "")

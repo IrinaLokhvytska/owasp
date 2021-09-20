@@ -1,4 +1,4 @@
-""" Set up flask configuration """
+"""Set up flask configuration"""
 import os
 
 # App conf

@@ -1,4 +1,4 @@
-""" Login, logout, render login page """
+"""Login, logout, render login page"""
 from flask.views import MethodView
 from flask import (
     render_template, session, request,
@@ -13,9 +13,9 @@ from web.forms.registration import LogInForm, RegistrationForm
 
 
 class LoginAPI(MethodView):
-    """ View for the /login endpoint """
+    """View for the /login endpoint"""
     def _make_user_inactive_for_max_login_failure(self, user):
-        """ Make user inactive for the max login failure """
+        """Make user inactive for the max login failure"""
         if session.get("login_attempt", 0) >= app.config["MAX_LOGIN_FAILURE"]:
             user.active = False
             db.session.flush()
@@ -23,13 +23,13 @@ class LoginAPI(MethodView):
             app.logger.error(f"{user.email} has reached the maximum sign in attempts.")
 
     def get(self):
-        """ Get login page """
+        """Get login page"""
         form = LogInForm()
         reg_form = RegistrationForm()
         return render_template('login.html', form=form, reg_form=reg_form)
 
     def post(self):
-        """ Log in user """
+        """Log in user"""
         form = LogInForm(request.form)
         if not form.validate():
             return jsonify({"answer": "error", "msg": str(form.errors)}), 500
@@ -55,10 +55,10 @@ class LoginAPI(MethodView):
 
 
 class LogoutAPI(MethodView):
-    """ Logout view """
+    """Logout view"""
     @check_login
     def get(self):
-        """ Log out user """
+        """Log out user"""
         session.pop("login_attempt", None)
         session.pop("login", None)
         session.pop("user_id", None)

@@ -1,4 +1,4 @@
-""" Initialize the application """
+"""Initialize the application"""
 import logging
 import traceback
 
@@ -35,7 +35,7 @@ app.debug = True
 
 @app.errorhandler(Exception)
 def error_handler(exc):
-    """ Error Handler """
+    """Error Handler"""
     code = 500
     app.logger.error(traceback.format_exc())
     msg = getattr(exc, "message", str(exc))

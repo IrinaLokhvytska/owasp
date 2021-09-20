@@ -8,7 +8,7 @@ from wtforms.fields.html5 import EmailField
 
 
 class LogInForm(Form):
-    """ Validate registration form """
+    """Validate registration form"""
     email = EmailField('Email address',
         [validators.DataRequired(), validators.Email()],
         render_kw={"class": "form-control", "id": "inputEmail", "placeholder": "Email address"}
@@ -19,7 +19,7 @@ class LogInForm(Form):
     )
 
 def validate_strong_password(form, field):
-    """ Check if password is strong """
+    """Check if password is strong"""
     special_characters = "@#$%^&+="
     validation_error = "Password must contains:"
     password_checks = (
@@ -41,7 +41,7 @@ def validate_strong_password(form, field):
 
 
 class RegistrationForm(Form):
-    """ Validate registration form """
+    """Validate registration form"""
     email = EmailField('Email address',
         [validators.DataRequired(), validators.Email(), validators.Length(min=4, max=35)],
         render_kw={"class": "form-control", "id": "email", "placeholder": "Email address"}

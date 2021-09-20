@@ -1,9 +1,9 @@
-""" Run flask application """
+"""Run flask application"""
 from web import app, db
 
 
 def create_db_tables():
-    """ Create db tables """
+    """Create db tables"""
     if app.config['INIT_DB']:
         with app.app_context():
             db.create_all()

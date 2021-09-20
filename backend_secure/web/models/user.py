@@ -1,4 +1,4 @@
-""" User db model """
+"""User db model"""
 import datetime
 import secrets
 import string
@@ -12,7 +12,7 @@ from web.models import db
 
 
 class User(db.Model):
-    """ User Model for storing user related details """
+    """User Model for storing user related details"""
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -26,7 +26,7 @@ class User(db.Model):
     credit_cards = db.relationship('CreditCard', backref='users', lazy=True)
 
     def __init__(self, email, password, admin=False, active=True):
-        """ Init User db model """
+        """Init User db model"""
         self.email = email
         self.salt = self.get_salt_for_new_password()
         self.password = self.hash_new_password(password, self.salt)
@@ -36,9 +36,9 @@ class User(db.Model):
 
     @staticmethod
     def get_salt_for_new_password():
-        """ Get salt for new password """
+        """Get salt for new password"""
         alphabet = string.ascii_letters + string.digits
-        salt = ''.join(secrets.choice(alphabet) for i in range(8))
+        salt = ''.join(secrets.choice(alphabet) for _ in range(8))
         return salt
 
     @staticmethod
@@ -67,7 +67,7 @@ class User(db.Model):
             return False
 
     def get_user_info(self):
-        """ Get user info """
+        """Get user info"""
         return {
             "id": self.id,
             "email": self.email,
