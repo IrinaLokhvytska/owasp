@@ -1,4 +1,7 @@
 """CreditCard db model"""
+from cryptography.fernet import Fernet
+from flask import current_app as app
+
 from web.models import db
 
 
@@ -14,7 +17,19 @@ class CreditCard(db.Model):
 
     def __init__(self, credit_card_number, credit_card_cvv, credit_card_date, user_id):
         """Init CreditCard db model"""
-        self.credit_card_number = credit_card_number
-        self.credit_card_cvv = credit_card_cvv
-        self.credit_card_date = credit_card_date
+        fernet = Fernet(app.config["FERNET_KEY"])
+        self.credit_card_number = fernet.encrypt(bytes(credit_card_number, 'UTF-8'))
+        self.credit_card_cvv = fernet.encrypt(bytes(credit_card_cvv, 'UTF-8'))
+        self.credit_card_date = fernet.encrypt(bytes(credit_card_date, 'UTF-8'))
         self.user_id = user_id
+    
+
+    def get_card_info(self):
+        """Decrypt credit card information"""
+        fernet = Fernet(app.config["FERNET_KEY"])
+        return {
+            "credit_card_id": self.id,
+            "credit_card_number": fernet.decrypt(self.credit_card_number),
+            "credit_card_cvv": fernet.decrypt(self.credit_card_cvv),
+            "credit_card_date": fernet.decrypt(self.credit_card_date),
+        }

@@ -2,6 +2,7 @@
 import os
 
 from datetime import timedelta
+from cryptography.fernet import Fernet
 
 
 # App conf
@@ -21,3 +22,4 @@ SQLALCHEMY_DATABASE_URI = f'postgresql+psycopg2://{POSTGRES_USER}:{POSTGRES_PASS
 INIT_DB = int(os.environ['INIT_DB_OWASP'])
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 MAX_LOGIN_FAILURE = 2
+FERNET_KEY = Fernet.generate_key()
