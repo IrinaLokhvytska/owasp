@@ -140,19 +140,20 @@ function update_todo(todo_id) {
     $(form_id).removeClass('was-validated')
     $(form_id + " input[name=title]").val(todo_info.title)
     $(form_id + " input[name=description]").val(todo_info.description)
-    $(form_id + " #" + todo_id + "_priority").val(todo_info.priority)
-    $(modal_id + " #submit_values").attr("onclick", "update_new_todo(\"" + form_id + "\"," + "\"" + todo_info.status + "\")")
+    $(form_id + " #todo_priority").val(todo_info.priority)
+    $(form_id + " #todo_status").val(todo_info.status)
+    $(modal_id + " #submit_values").attr("onclick", "update_new_todo(\"" + form_id + "\")")
     $(modal_id + " #add_todo_modal").attr("onclick", "close_modal_window(\"" + modal_id + "\")")
     $(modal_id).modal('show')
 }
 
-function update_new_todo(form_id, todo_status_id) {
+function update_new_todo(form_id) {
     let data = {
         "title": $(form_id + " input[name=title]").val(),
         "description": $(form_id + " input[name=description]").val(),
-        "priority": $(form_id + " #" + todo_status_id + "_priority").val(),
+        "priority": $(form_id + " #todo_priority").val(),
         "image": $(form_id + " input[name=image]").val(),
-        "status": todo_status_id
+        "status": $(form_id + " #todo_status").val()
     }
     $.ajax({
         type: "PUT",

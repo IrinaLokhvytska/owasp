@@ -45,6 +45,16 @@
                             </div>
                         </div>
                         <div class="row mb-3">
+                            <label for="todo_status" class="col-sm-5 col-form-label">Status</label>
+                            <div class="col-sm-7">
+                                <select id="todo_status" class="form-control" name="status" required>
+                                    <option selected>todo</option>
+                                    <option>in_progress</option>
+                                    <option>done</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
                             <label for="todo_image" class="col-sm-5 col-form-label">Image</label>
                             <div class="col-sm-7">
                                 <input type="file" class="form-control-file" id="todo_image" name="image">

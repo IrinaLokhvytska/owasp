@@ -11,21 +11,24 @@ from web.models.todo import ToDo
 from web.helpers import check_login
 
 
+PRIORITY_TO_INT = {"low": 0, "medium": 1, "high": 2}
+STATUS_TO_INT = {"todo": 0, "in_progress": 1, "done": 2}
+
+
 class AddToDoAPI(MethodView):
     """Endpoints for the add todo API"""
     @check_login
     def post(self):
         """Add todo item info"""
         data = request.json
-        print(data)
         try:
             todo_item = ToDo(
                 title=data.get("title"),
                 description=data.get("description"),
                 image=data.get("image"),
                 user_id=session.get("user_id"),
-                status=data.get("status"),
-                priority=data.get("priority"),
+                status=STATUS_TO_INT[data.get("status")] if data.get("status") else 0,
+                priority=PRIORITY_TO_INT[data.get("priority")] if data.get("priority") else 0,
             )
             db.session.add(todo_item)
             db.session.flush()
@@ -75,7 +78,13 @@ class ToDoAPI(MethodView):
         """Update todo item info"""
         data = request.json
         try:
-            ToDo.query.filter_by(id=todo_id).update(**data)
+            ToDo.query.filter_by(id=todo_id).update(dict(
+                title=data.get("title"),
+                description=data.get("description"),
+                image=data.get("image"),
+                status=STATUS_TO_INT[data.get("status")] if data.get("status") else 0,
+                priority=PRIORITY_TO_INT[data.get("priority")] if data.get("priority") else 0,
+            ))
             db.session.flush()
             db.session.commit()
         except IntegrityError as exc:
