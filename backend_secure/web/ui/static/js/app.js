@@ -73,7 +73,7 @@ function add_new_todo(todo_status_id) {
     $(form_id).trigger("reset");
     var modal_id = "#modal_" + todo_status_id
     $(form_id).removeClass('was-validated')
-    $(modal_id + " #submit_values").attr("onclick", "insert_new_todo(\"" + form_id + "\"," + todo_status_id + ")")
+    $(modal_id + " #submit_values").attr("onclick", "insert_new_todo(\"" + form_id + "\"," + "\"" + todo_status_id + "\")")
     $(modal_id + " #add_todo_modal").attr("onclick", "close_modal_window(\"" + modal_id + "\")")
     $(modal_id).modal('show')
 }
@@ -85,7 +85,7 @@ function close_modal_window(modal_id){
 function insert_new_todo(form_id, todo_status_id) {
     let data = {
         "title": $(form_id + " input[name=title]").val(),
-        "description": $(form_id + " input[name=description]").val(),
+        "description": $(form_id + " #" + todo_status_id + "_description").val(),
         "priority": $(form_id + " #" + todo_status_id + "_priority").val(),
         "image": $(form_id + " input[name=image]").val(),
         "status": todo_status_id
@@ -150,7 +150,7 @@ function update_todo(todo_id) {
 function update_new_todo(form_id) {
     let data = {
         "title": $(form_id + " input[name=title]").val(),
-        "description": $(form_id + " input[name=description]").val(),
+        "description": $(form_id + " #todo_description").val(),
         "priority": $(form_id + " #todo_priority").val(),
         "image": $(form_id + " input[name=image]").val(),
         "status": $(form_id + " #todo_status").val()

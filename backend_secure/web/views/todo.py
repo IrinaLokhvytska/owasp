@@ -72,7 +72,7 @@ class ToDoAPI(MethodView):
                     "msg": str(exc)
                 }), 500
         return jsonify({"answer": "success"}), 200
-    
+
     @check_login
     def put(self, todo_id):
         """Update todo item info"""
