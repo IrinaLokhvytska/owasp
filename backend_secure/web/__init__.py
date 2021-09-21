@@ -42,7 +42,6 @@ def add_secure_headers_to_response(response):
     """Add secure headers to response"""
     # https://flask.palletsprojects.com/en/2.0.x/security/
     response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
-    response.headers["Content-Security-Policy"] = "default-src 'self'"
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "SAMEORIGIN"
     response.headers["X-XSS-Protection"] = "1; mode=block"
