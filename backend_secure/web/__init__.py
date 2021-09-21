@@ -4,7 +4,6 @@ import traceback
 
 from flask_migrate import Migrate
 from flask import jsonify
-from flask_wtf.csrf import CSRFProtect
 
 from web.setup_app import create_app
 from web.models import db
@@ -23,10 +22,6 @@ sh = logging.StreamHandler()
 sh.setLevel(logging.INFO)
 root.addHandler(sh)
 
-# csrf
-csrf = CSRFProtect()
-csrf.init_app(app)
-
 
 # add endpoints
 add_endpoints_to_app(app)
@@ -40,3 +35,15 @@ def error_handler(exc):
     app.logger.error(traceback.format_exc())
     msg = getattr(exc, "message", str(exc))
     return jsonify({"answer": "error", "msg": msg}), code
+
+
+@app.after_request
+def add_secure_headers_to_response(response):
+    """Add secure headers to response"""
+    # https://flask.palletsprojects.com/en/2.0.x/security/
+    response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+    response.headers["Content-Security-Policy"] = "default-src 'self'"
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "SAMEORIGIN"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
+    return response
