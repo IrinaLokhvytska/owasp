@@ -1,3 +1,71 @@
 {% extends "layout.html" %}
 {% block content %}
+<div class="jumbotron jumbotron-fluid" id="todo_{{todo_item.id}}">
+    <div class="container">
+      <h1 class="display-4">{{todo_item.title}}</h1>
+      <p class="lead">{{todo_item.description}}</p>
+      <div class="alert alert-danger alert-dismissible fade" id="show_alert" role="alert">
+        <strong id="content"></strong>
+      </div>
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <button type="button" class="btn btn-link" onclick="update_todo('{{todo_item.id}}')">
+                <span class="material-icons">edit</span>
+            </button>
+            <button type="button" class="btn btn-link" onclick="delete_todo('{{todo_item.id}}')">
+                <span class="material-icons">delete</span>
+            </button>
+        </div>
+    </div>
+    <div class="modal" id="todo_modal_{{todo_item.id}}" tabindex="-1" aria-labelledby="" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form class="needs-validation" novalidate id="form_todo_{{todo_item.id}}">
+                        <!-- ToDo inputs -->
+                        <div class="row mb-3">
+                            <label for="todo_title" class="col-sm-5 col-form-label">Title</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control"id="todo_title" name="title" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="todo_description" class="col-sm-5 col-form-label">Description</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control"id="todo_description" name="description">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="todo_priority" class="col-sm-5 col-form-label">Priority</label>
+                            <div class="col-sm-7">
+                                <select id="todo_priority" class="form-control" name="priority" required>
+                                    <option selected>low</option>
+                                    <option>medium</option>
+                                    <option>high</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="todo_image" class="col-sm-5 col-form-label">Image</label>
+                            <div class="col-sm-7">
+                                <input type="file" class="form-control-file" id="todo_image" name="image">
+                            </div>
+                        </div>
+                        <!-- ToDo inputs -->
+                        <div class="alert alert-danger alert-dismissible fade" id="show_alert" role="alert">
+                            <strong id="content"></strong>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="add_todo_modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="submit_values">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var todo_info = {{todo_item | tojson}};
+</script>
 {% endblock %}
