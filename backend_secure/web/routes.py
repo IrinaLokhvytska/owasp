@@ -1,5 +1,8 @@
 """Add endpoints to the app"""
-from web.views import login, home, user, admin, todo
+from web.views import (
+    login, home, user,
+    admin, todo, credit_card
+)
 
 
 def add_endpoints_to_app(app):
@@ -12,3 +15,5 @@ def add_endpoints_to_app(app):
     app.add_url_rule('/user/<int:user_id>', view_func=user.UserAPI.as_view('user'))
     app.add_url_rule('/todo', view_func=todo.AddToDoAPI.as_view('todo'))
     app.add_url_rule('/todo/<int:todo_id>', view_func=todo.ToDoAPI.as_view('todo_info'))
+    app.add_url_rule('/credit_card', view_func=credit_card.AddCreditCardAPI.as_view('credit_card'))
+    app.add_url_rule('/credit_card/<int:card_id>', view_func=credit_card.CreditCardAPI.as_view('credit_card_info'))

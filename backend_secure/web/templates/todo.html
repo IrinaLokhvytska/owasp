@@ -2,8 +2,8 @@
 {% block content %}
 <div class="jumbotron jumbotron-fluid" id="todo_{{todo_item.id}}">
     <div class="container">
-      <h1 class="display-4">{{todo_item.title}}</h1>
-      <p class="lead">{{todo_item.description}}</p>
+      <h1 class="display-4" id="div_todo_title">{{todo_item.title}}</h1>
+      <p class="lead" id="div_todo_description">{{todo_item.description}}</p>
       <div class="alert alert-danger alert-dismissible fade" id="show_alert" role="alert">
         <strong id="content"></strong>
       </div>
@@ -31,7 +31,7 @@
                         <div class="row mb-3">
                             <label for="todo_description" class="col-sm-5 col-form-label">Description</label>
                             <div class="col-sm-7">
-                                <textarea class="form-control"id="todo_description" name="description"></textarea>
+                                <textarea class="form-control" id="todo_description" name="description"></textarea>
                             </div>
                         </div>
                         <div class="row mb-3">

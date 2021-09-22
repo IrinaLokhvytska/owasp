@@ -49,7 +49,13 @@ class ToDoAPI(MethodView):
     @check_login
     def get(self, todo_id):
         """Get todo item info"""
-        todo_item = ToDo.query.filter_by(id=todo_id).first()
+        todo_item = ToDo.query.filter_by(id=todo_id, user_id=session.get("user_id")).first()
+        if not todo_item:
+            return jsonify(
+                {
+                    "answer": "error",
+                    "msg": "You do not have permission"
+                }), 500
         return render_template(
             'todo.html',
             user_id=session.get("user_id"),
@@ -60,7 +66,7 @@ class ToDoAPI(MethodView):
     def delete(self, todo_id):
         """Delete todo item info"""
         try:
-            ToDo.query.filter_by(id=todo_id).delete()
+            ToDo.query.filter_by(id=todo_id, user_id=session.get("user_id")).delete()
             db.session.flush()
             db.session.commit()
         except IntegrityError as exc:
@@ -78,7 +84,7 @@ class ToDoAPI(MethodView):
         """Update todo item info"""
         data = request.json
         try:
-            ToDo.query.filter_by(id=todo_id).update(dict(
+            ToDo.query.filter_by(id=todo_id, user_id=session.get("user_id")).update(dict(
                 title=data.get("title"),
                 description=data.get("description"),
                 image=data.get("image"),

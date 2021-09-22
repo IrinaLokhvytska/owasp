@@ -139,15 +139,25 @@ function update_todo(todo_id) {
     let modal_id = "#todo_modal_" + todo_id
     $(form_id).removeClass('was-validated')
     $(form_id + " input[name=title]").val(todo_info.title)
-    $(form_id + " input[name=description]").val(todo_info.description)
+    $(form_id + " #todo_description").val(todo_info.description)
     $(form_id + " #todo_priority").val(todo_info.priority)
     $(form_id + " #todo_status").val(todo_info.status)
-    $(modal_id + " #submit_values").attr("onclick", "update_new_todo(\"" + form_id + "\")")
+    $(modal_id + " #submit_values").attr("onclick", "update_new_todo(\"" + form_id + "\"," + "\"" + modal_id + "\")")
     $(modal_id + " #add_todo_modal").attr("onclick", "close_modal_window(\"" + modal_id + "\")")
     $(modal_id).modal('show')
 }
 
-function update_new_todo(form_id) {
+function update_todo_item(data){
+    // <script>alert(document.cookie);</script>
+    todo_info.title = data["title"]
+    todo_info.description = data["description"]
+    todo_info.priority = data["priority"]
+    todo_info.status = data["status"]
+    $("#div_todo_title").html(data["title"])
+    $("#div_todo_description").html(data["description"])
+}
+
+function update_new_todo(form_id, modal_id) {
     let data = {
         "title": $(form_id + " input[name=title]").val(),
         "description": $(form_id + " #todo_description").val(),
@@ -161,7 +171,8 @@ function update_new_todo(form_id) {
         data: JSON.stringify(data),
         success: function (response, textStatus) {
             if (textStatus == "success") {
-                window.location = '/';
+                update_todo_item(data)
+                $(modal_id).modal('hide')
             } else {
                 let response_msg = jQuery.parseJSON(response.responseText)
                 error_alert(response_msg['msg'], form_id)
