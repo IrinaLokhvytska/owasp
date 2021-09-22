@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div class="col-1">
-                        <button type="button" class="btn btn-link" onclick="edit_or_add_row('{{tab.id}}','new_row')">
+                        <button type="button" class="btn btn-link" onclick="add_new_todo('{{tab.id}}')">
                             <span class="material-icons">post_add</span>
                         </button>
                     </div>
@@ -57,6 +57,55 @@
                 </div>
             </div>
             <!-- Button trigger modal -->
+            <!-- Modal -->
+            <div class="modal" id="modal_{{tab.id}}" tabindex="-1" aria-labelledby="" aria-hidden="true"
+                data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <form class="needs-validation" novalidate id="form_{{tab.id}}">
+                                <!-- ToDo inputs -->
+                                <div class="row mb-3">
+                                    <label for="{{tab.id}}_title" class="col-sm-5 col-form-label">Title</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control"id="{{tab.id}}_title" name="title" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="{{tab.id}}_description" class="col-sm-5 col-form-label">Description</label>
+                                    <div class="col-sm-7">
+                                        <textarea class="form-control"id="{{tab.id}}_description" name="description"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="{{tab.id}}_priority" class="col-sm-5 col-form-label">Priority</label>
+                                    <div class="col-sm-7">
+                                        <select id="{{tab.id}}_priority" class="form-control" name="priority" required>
+                                            <option selected>low</option>
+                                            <option>medium</option>
+                                            <option>high</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="{{tab.id}}_image" class="col-sm-5 col-form-label">Image</label>
+                                    <div class="col-sm-7">
+                                        <input type="file" class="form-control-file" id="{{tab.id}}_image" name="image">
+                                    </div>
+                                </div>
+                                <!-- ToDo inputs -->
+                                <div class="alert alert-danger alert-dismissible fade" id="show_alert" role="alert">
+                                    <strong id="content"></strong>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="add_todo_modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="submit_values">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         {% endfor %}
     </div>

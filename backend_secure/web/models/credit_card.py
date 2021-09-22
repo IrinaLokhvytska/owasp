@@ -22,7 +22,6 @@ class CreditCard(db.Model):
         self.credit_card_cvv = fernet.encrypt(bytes(credit_card_cvv, 'UTF-8'))
         self.credit_card_date = fernet.encrypt(bytes(credit_card_date, 'UTF-8'))
         self.user_id = user_id
-    
 
     def get_card_info(self):
         """Decrypt credit card information"""

@@ -4,6 +4,10 @@ import datetime
 from web.models import db
 
 
+PRIORITY = {0: "low", 1: "medium", 2: "high"}
+STATUS = {0: "todo", 1: "in_progress", 2: "done"}
+
+
 class ToDo(db.Model):
     """ToDo Model for storing todo list related details"""
     __tablename__ = "todo_list"
@@ -29,14 +33,12 @@ class ToDo(db.Model):
 
     def get_todo_dict(self):
         """Convert priority and status, return dict"""
-        priority = {0: "low", 1: "medium", 2: "high"}
-        status = {0: "todo", 1: "in_progress", 2: "done"}
         return {
             "id": self.id,
             "title": self.title,
             "description": self.description,
             "created_on": self.created_on.strftime("%m/%d/%Y"),
-            "status": status[self.status],
-            "priority": priority[self.priority],
+            "status": STATUS[self.status],
+            "priority": PRIORITY[self.priority],
             "image": self.image if self.image else "images/default_todo_image.jpeg"
         }
