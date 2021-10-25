@@ -4,7 +4,7 @@ import os
 # App conf
 FLASK_APP = os.environ['FLASK_APP']
 FLASK_ENV = os.environ['FLASK_ENV']
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = "b7ab73024a04ef014dea1b108eec58d7c0e486e9ec853dbc689ab41933d70d"
 
 # DB conf
 POSTGRES_USER = os.environ['POSTGRES_USER']
