@@ -17,8 +17,8 @@ class LoginAPI(MethodView):
 
     def post(self):
         """Log in user"""
-        email = request.form.get("email")
-        password = request.form.get("password")
+        email = request.json.get("email")
+        password = request.json.get("password")
         with db.engine.connect() as connection:
             query = connection.execute(f"SELECT * FROM users WHERE email='{email}'")
             user = query.first()

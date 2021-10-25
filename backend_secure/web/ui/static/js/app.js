@@ -147,8 +147,20 @@ function update_todo(todo_id) {
     $(modal_id).modal('show')
 }
 
+function sanitize(string) {
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#x27;',
+        "/": '&#x2F;',
+    };
+    const reg = /[&<>"'/]/ig;
+    return string.replace(reg, (match)=>(map[match]));
+}
+
 function update_todo_item(data){
-    // <script>alert(document.cookie);</script>
     todo_info.title = data["title"]
     todo_info.description = data["description"]
     todo_info.priority = data["priority"]
@@ -165,6 +177,13 @@ function update_new_todo(form_id, modal_id) {
         "image": $(form_id + " input[name=image]").val(),
         "status": $(form_id + " #todo_status").val()
     }
+    // let data = {
+    //     "title": sanitize($(form_id + " input[name=title]").val()),
+    //     "description": sanitize($(form_id + " #todo_description").val()),
+    //     "priority": $(form_id + " #todo_priority").val(),
+    //     "image": $(form_id + " input[name=image]").val(),
+    //     "status": $(form_id + " #todo_status").val()
+    // }
     $.ajax({
         type: "PUT",
         url: "/todo/" + todo_info.id,

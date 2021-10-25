@@ -14,7 +14,7 @@ class ToDo(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.String(255), nullable=True)
+    description = db.Column(db.Text, nullable=True)
     created_on = db.Column(db.DateTime, nullable=False)
     status = db.Column(db.Integer, nullable=False, default=0)
     priority = db.Column(db.Integer, nullable=False, default=0)
