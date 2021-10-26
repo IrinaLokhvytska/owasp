@@ -16,7 +16,7 @@ services:
       - backend_secure_db
     volumes:
       - ./backend_secure:/app
-  
+
   backend:
     env_file:
       - ./backend/database.conf
@@ -40,7 +40,7 @@ services:
     env_file: ./backend_secure/database.conf
     ports:
       - "5961:5432"
-  
+
   backend_db:
     container_name: backend_db
     restart: always

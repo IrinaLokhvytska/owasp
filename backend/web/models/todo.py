@@ -10,6 +10,7 @@ STATUS = {0: "todo", 1: "in_progress", 2: "done"}
 
 class ToDo(db.Model):
     """ToDo Model for storing todo list related details"""
+
     __tablename__ = "todo_list"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -19,7 +20,7 @@ class ToDo(db.Model):
     status = db.Column(db.Integer, nullable=False, default=0)
     priority = db.Column(db.Integer, nullable=False, default=0)
     image = db.Column(db.String, nullable=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
     def __init__(self, title, description, image, user_id, status=0, priority=0):
         """Init ToDo db model"""
@@ -40,5 +41,5 @@ class ToDo(db.Model):
             "created_on": self.created_on.strftime("%m/%d/%Y"),
             "status": STATUS[self.status],
             "priority": PRIORITY[self.priority],
-            "image": self.image if self.image else "images/default_todo_image.jpeg"
+            "image": self.image if self.image else "images/default_todo_image.jpeg",
         }

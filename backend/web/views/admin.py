@@ -8,6 +8,7 @@ from web.models.user import User
 
 class AdminAPI(MethodView):
     """Views for the /admin endpoint"""
+
     @check_login
     def get(self):
         """Get admin page"""
@@ -16,7 +17,5 @@ class AdminAPI(MethodView):
         for user in db_users:
             users.append(user.get_user_info())
         return render_template(
-            'admin.html',
-            user_id=session.get("user_id"),
-            users=users,
+            "admin.html", user_id=session.get("user_id"), users=users
         )

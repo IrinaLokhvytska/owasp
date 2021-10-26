@@ -87,13 +87,13 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
-  
+
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
     background-color: darkgray;
     color: black !important;
 }
-  
+
 textarea {
     font-family: Consolas, Monaco, Lucida Console, Liberation Mono,
       DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace !important;
@@ -103,17 +103,17 @@ textarea {
     max-width: 90% !important;
     overflow-x: auto;
 }
-  
+
 .small_font {
     font-size: small;
     word-wrap: break-word;
 }
-  
+
 .modal-error {
     max-width: 70% !important;
     overflow-x: auto;
 }
-  
+
 .btn-primary,
 .btn-outline-primary {
     color: #5A4AE3;

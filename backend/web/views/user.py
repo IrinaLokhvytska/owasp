@@ -2,10 +2,7 @@
 import datetime
 
 from flask.views import MethodView
-from flask import (
-    render_template, session, request,
-    jsonify
-)
+from flask import render_template, session, request, jsonify
 from sqlalchemy.exc import IntegrityError
 
 from web.models import db
@@ -14,6 +11,7 @@ from web.helpers import check_login
 
 class RegistrationAPI(MethodView):
     """Endpoints for the user API"""
+
     def post(self):
         """Register User"""
         email = request.json.get("email")
@@ -25,21 +23,23 @@ class RegistrationAPI(MethodView):
                 user = connection.execute(
                     f"INSERT INTO users (email, password, registered_on, admin) VALUES ('{email}', '{password}', '{registered_on}', '{admin}') RETURNING id"
                 )
-            session.update({
-                "login": True,
-                "user_id": user.fetchone()[0]
-            })
+            session.update({"login": True, "user_id": user.fetchone()[0]})
         except IntegrityError:
-            return jsonify(
-                {
-                    "answer": "error",
-                    "msg": "The user with this email already exists"
-                }), 500
+            return (
+                jsonify(
+                    {
+                        "answer": "error",
+                        "msg": "The user with this email already exists",
+                    }
+                ),
+                500,
+            )
         return jsonify({"answer": "success"}), 200
 
 
 class UserAPI(MethodView):
     """Endpoints for the user API"""
+
     @check_login
     def get(self, user_id):
         """Get user info"""
@@ -53,19 +53,21 @@ class UserAPI(MethodView):
             "id": user.id,
             "email": user.email,
             "registered_on": user.registered_on,
-            "role": "admin" if user.admin else "regular user"
+            "role": "admin" if user.admin else "regular user",
         }
         credit_cards_info = []
         for credit_card in credit_cards:
-            credit_cards_info.append({
-                "credit_card_id": credit_card.id,
-                "credit_card_number": credit_card.credit_card_number,
-                "credit_card_cvv": credit_card.credit_card_cvv,
-                "credit_card_date": credit_card.credit_card_date,
-            })
+            credit_cards_info.append(
+                {
+                    "credit_card_id": credit_card.id,
+                    "credit_card_number": credit_card.credit_card_number,
+                    "credit_card_cvv": credit_card.credit_card_cvv,
+                    "credit_card_date": credit_card.credit_card_date,
+                }
+            )
         return render_template(
-            'user.html',
+            "user.html",
             user_id=user_id,
             user=user_info,
-            credit_cards_info=credit_cards_info
+            credit_cards_info=credit_cards_info,
         )
