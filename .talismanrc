@@ -1,16 +1,8 @@
 fileignoreconfig:
-- filename: examples/sensitive_data_exposure/password_hasher.py
-  checksum: c43ec90def2607ce2a92696ffbca28bb3b4dc33dd8b54170735ac1a0952261f2
 - filename: README.md
   checksum: 4a3e3c7cff1cbb849c1009ac698a463af13c09fca02b96b11613c7ba0398d6b7
-- filename: backend/web/config.py
-  checksum: e3fb439ecd079b1b6ed33935d91ec08dd9538541d939e7ff5442fb0d30c8491a
-- filename: backend_secure/web/__init__.py
-  checksum: 8997e2cbe7a3f0865a50ca447b634a140c848ba440e3bb9f6db08419781de000
 - filename: backend/web/templates/user.html
   checksum: ea9f9e1e8bdd0e6791bc2d6b386394e7479b05e24352f3d258aefbc72aa7e9e4
-- filename: backend/web/models/user.py
-  checksum: 15d620ca60cf97bc9d7a5bd66029311c3e21ec1efa87496e7ecf1febad4bbf4b
 - filename: backend/web/templates/login.html
   checksum: 1d71ca8c16dd18c6a06f137f6a38ce0091aedabc8d79ba3409f78cbf92ea4f3d
 - filename: backend/web/templates/admin.html
@@ -31,24 +23,14 @@ fileignoreconfig:
   checksum: 4b690c9d4d8a1ebbfd8f0141d8a5a9d70653318bcb75afe339b0f04679b4033c
 - filename: backend/web/ui/static/bootstrap/css/bootstrap-utilities.rtl.min.css.map
   checksum: 8817359da6a0d14d8e21286d0e65348e840f4aeb4c2c853e3fd5bcb6c0d39bf1
-- filename: backend/web/views/login.py
-  checksum: 94e8bd403d1e241c126f0678b17562c14029b50ca845d9742d6a8951781e9194
 - filename: backend_secure/web/templates/admin.html
   checksum: e182e5e8e6e2476ad9daddeaa7c2f6bd5dadeeedc3fe9b3552cfabd6f46dc09a
-- filename: backend/web/views/user.py
-  checksum: 8416af428f83f316e9076054862fa3da31100d19c520eea34df39e3c7fae8ea0
 - filename: backend_secure/web/templates/home.html
   checksum: c9aef65498b9801786ab8a41e87e176c08d05b0bf516aa4dfd2ce5fa1ccff6d4
-- filename: backend_secure/web/config.py
-  checksum: 24a4cc938e23c6ac8277b29af3bdd656c5766f2d98cfafe167ecc18aab5330ca
-- filename: backend_secure/web/forms/registration.py
-  checksum: e7ab2e09359cf335824a91a2b04023dba784651d7da14459a3835fe1eb843b55
 - filename: backend_secure/web/templates/login.html
   checksum: 568174f8cc9e7a264017c1a91df294aa41a832cb3a9babef39dc03f6c369bc28
 - filename: backend_secure/web/templates/todo.html
   checksum: fc59a9c7ce553f55d88b8e98c026774906fb96b24d7a1ce4fda8a88e7f09dc21
-- filename: backend_secure/web/models/user.py
-  checksum: 6f95d77c18efba1bb28f020e71d1f91fae22785c3148378558ed2aeeba1ccb3c
 - filename: backend_secure/web/templates/user.html
   checksum: 71f2263e4aab7d1eb0d7c50fef68213beccc96e0483bbed2fe7e6b156190cd37
 - filename: backend/web/ui/static/bootstrap/css/bootstrap-grid.rtl.min.css.map
@@ -123,10 +105,6 @@ fileignoreconfig:
   checksum: bd9e7476a65a99bbc86a679080113031bd76255d4197b8f6993062053bef664c
 - filename: backend/web/ui/static/bootstrap/js/bootstrap.esm.min.js
   checksum: 386f42cc190443317a93788d40b95a3759749bd860915f645394af37e0ba800b
-- filename: backend_secure/web/views/user.py
-  checksum: be4e6cb6793c95eb54f0b55e3148377b27df53eca0cc904d19ee400e423b1c41
-- filename: examples/broken_authentication/brute_force.py
-  checksum: 9b80101a028f60ee6f41ca7c56a46357e88212f7cac22e528eb743c548cbfec2
 - filename: backend_secure/web/ui/static/js/popper.min.js
   checksum: 049c4dfc4dca5156be362c3809ddedd68bd7ea78add20073e38c7c23dbdf1371
 - filename: backend_secure/web/ui/static/bootstrap/js/bootstrap.esm.js
