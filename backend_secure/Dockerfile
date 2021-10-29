@@ -7,4 +7,4 @@ COPY . .
 RUN pip install -r requirements.txt
 EXPOSE 5003
 
-CMD ["python", "run.py"] 
+CMD ["python", "run.py"]

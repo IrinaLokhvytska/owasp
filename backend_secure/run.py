@@ -4,7 +4,7 @@ from web import app, db
 
 def create_db_tables():
     """Create db tables"""
-    if app.config['INIT_DB']:
+    if app.config["INIT_DB"]:
         with app.app_context():
             db.create_all()
     return app
@@ -12,4 +12,4 @@ def create_db_tables():
 
 if __name__ == "__main__":
     app = create_db_tables()
-    app.run(host='0.0.0.0', port=5003, debug=True)
+    app.run(host="0.0.0.0", port=5003, debug=True)

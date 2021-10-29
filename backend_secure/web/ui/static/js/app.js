@@ -30,7 +30,7 @@ function user_register() {
             error: function (response) {
                 let response_msg = jQuery.parseJSON(response.responseText)
                 error_alert(response_msg['msg'], "#user_registration")
-    
+
             },
             contentType: false,
             mimeType: "multipart/form-data",

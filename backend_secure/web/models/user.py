@@ -13,6 +13,7 @@ from web.models import db
 
 class User(db.Model):
     """User Model for storing user related details"""
+
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -22,8 +23,8 @@ class User(db.Model):
     registered_on = db.Column(db.DateTime, nullable=False, default=func.now())
     admin = db.Column(db.Boolean, nullable=False, default=False)
     active = db.Column(db.Boolean, nullable=False, default=True)
-    todos = db.relationship('ToDo', backref='users', lazy=True)
-    credit_cards = db.relationship('CreditCard', backref='users', lazy=True)
+    todos = db.relationship("ToDo", backref="users", lazy=True)
+    credit_cards = db.relationship("CreditCard", backref="users", lazy=True)
 
     def __init__(self, email, password, admin=False, active=True):
         """Init User db model"""
@@ -38,7 +39,7 @@ class User(db.Model):
     def get_salt_for_new_password():
         """Get salt for new password"""
         alphabet = string.ascii_letters + string.digits
-        salt = ''.join(secrets.choice(alphabet) for _ in range(8))
+        salt = "".join(secrets.choice(alphabet) for _ in range(8))
         return salt
 
     @staticmethod
@@ -73,5 +74,5 @@ class User(db.Model):
             "email": self.email,
             "registered_on": self.registered_on,
             "role": "admin" if self.admin else "regular user",
-            "active": self.active
+            "active": self.active,
         }

@@ -1,0 +1,42 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+
+# 1. pip install pre-commit
+# 2. pre-commit install
+# now pre-commit will run automatically on git commit
+repos:
+
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: check-yaml
+    -   id: check-added-large-files
+
+# Autoformatters are programs that refactor your code to conform with PEP 8 automatically.
+-   repo: https://github.com/psf/black
+    rev: 19.3b0
+    hooks:
+    -   id: black
+
+# Scans python dependencies for known security vulnerabilities
+-   repo: https://github.com/Lucas-C/pre-commit-hooks-safety
+    rev: v1.2.1
+    hooks:
+    -   id: python-safety-dependencies-check
+
+# Builds a tree of python objects and run it against known unsafe coding practices -
+# things like usage exec or assert, pickle or debug=True for flask app.
+-   repo: https://github.com/PyCQA/bandit
+    rev: '1.7.0'
+    hooks:
+    - id: bandit
+
+# Prospector is a tool to analyse Python code and output information about errors,
+# potential problems, convention violations and complexity.
+# It brings together the functionality of other Python analysis tools such as Pylint, pep8, and McCabe complexity.
+# -   repo: https://github.com/PyCQA/prospector
+#     rev: 1.1.7
+#     hooks:
+#     - id: prospector

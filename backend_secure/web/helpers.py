@@ -8,16 +8,19 @@ from web.models.user import User
 
 def check_login(func):
     """Check if user is authorized"""
+
     @wraps(func)
     def decorated_function(*args, **kwargs):
         if not session.get("login", False):
             return redirect(url_for("login"))
         return func(*args, **kwargs)
+
     return decorated_function
 
 
 def check_user_role(func):
     """Check if user has permission to view data"""
+
     @wraps(func)
     def decorated_function(*args, **kwargs):
         user_id = session.get("user_id", "")
@@ -26,11 +29,13 @@ def check_user_role(func):
             msg = "You do not have permission"
             return {"error": msg}, 500
         return func(*args, **kwargs)
+
     return decorated_function
 
 
 def check_user_permission(func):
     """Check if user has permission to view data"""
+
     @wraps(func)
     def decorated_function(*args, **kwargs):
         user_id = session.get("user_id", "")
@@ -38,4 +43,5 @@ def check_user_permission(func):
             msg = "You do not have permission"
             return {"error": msg}, 500
         return func(*args, **kwargs)
+
     return decorated_function

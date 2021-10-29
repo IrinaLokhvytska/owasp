@@ -1,22 +1,31 @@
 import re
 
-from wtforms import (
-    Form, PasswordField, validators,
-    ValidationError
-)
+from wtforms import Form, PasswordField, validators, ValidationError
 from wtforms.fields.html5 import EmailField
 
 
 class LogInForm(Form):
     """Validate registration form"""
-    email = EmailField('Email address',
+
+    email = EmailField(
+        "Email address",
         [validators.DataRequired(), validators.Email()],
-        render_kw={"class": "form-control", "id": "inputEmail", "placeholder": "Email address"}
+        render_kw={
+            "class": "form-control",
+            "id": "inputEmail",
+            "placeholder": "Email address",
+        },
     )
-    password = PasswordField('Password',
+    password = PasswordField(
+        "Password",
         [validators.DataRequired()],
-        render_kw={"class": "form-control", "id": "inputPassword", "placeholder": "Password"}
+        render_kw={
+            "class": "form-control",
+            "id": "inputPassword",
+            "placeholder": "Password",
+        },
     )
+
 
 def validate_strong_password(form, field):
     """Check if password is strong"""
@@ -28,8 +37,8 @@ def validate_strong_password(form, field):
         (re.compile(r"[0-9]+"), "at least one digit character,"),
         (
             re.compile(r"[@#$%^&+=]+"),
-            f"at least one of these special characters: {special_characters}."
-        )
+            f"at least one of these special characters: {special_characters}.",
+        ),
     )
     strong_password = True
     for (check, error_msg) in password_checks:
@@ -42,18 +51,40 @@ def validate_strong_password(form, field):
 
 class RegistrationForm(Form):
     """Validate registration form"""
-    email = EmailField('Email address',
-        [validators.DataRequired(), validators.Email(), validators.Length(min=4, max=35)],
-        render_kw={"class": "form-control", "id": "email", "placeholder": "Email address"}
+
+    email = EmailField(
+        "Email address",
+        [
+            validators.DataRequired(),
+            validators.Email(),
+            validators.Length(min=4, max=35),
+        ],
+        render_kw={
+            "class": "form-control",
+            "id": "email",
+            "placeholder": "Email address",
+        },
     )
-    password = PasswordField('Password', [
-        validators.DataRequired(),
-        validators.Length(min=8, max=25),
-        validate_strong_password,
-        validators.EqualTo('password2', message='Passwords must match')],
-        render_kw={"class": "form-control", "id": "password", "placeholder": "Password"}
+    password = PasswordField(
+        "Password",
+        [
+            validators.DataRequired(),
+            validators.Length(min=8, max=25),
+            validate_strong_password,
+            validators.EqualTo("password2", message="Passwords must match"),
+        ],
+        render_kw={
+            "class": "form-control",
+            "id": "password",
+            "placeholder": "Password",
+        },
     )
-    password2 = PasswordField('Confirm Password',
-        [validators.DataRequired(),],
-        render_kw={"class": "form-control", "id": "password2", "placeholder": "Confirm Password"}
+    password2 = PasswordField(
+        "Confirm Password",
+        [validators.DataRequired()],
+        render_kw={
+            "class": "form-control",
+            "id": "password2",
+            "placeholder": "Confirm Password",
+        },
     )

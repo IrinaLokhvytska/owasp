@@ -45,9 +45,9 @@ def error_handler(exc):
 
 
 @csrf.exempt
-@app.route('/xss_atack', methods=['POST'])
+@app.route("/xss_atack", methods=["POST"])
 def csp_report():
-    app.logger.error(json.loads(str(request.data, 'utf-8')))
+    app.logger.error(json.loads(str(request.data, "utf-8")))
     response = make_response()
     response.status_code = 200
     return response
@@ -75,7 +75,9 @@ def add_secure_headers_to_response(response):
     #     csp_header += ';'
     # csp_header += " report-uri /xss_atack"
     # response.headers["Content-Security-Policy"] = csp_header
-    response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+    response.headers[
+        "Strict-Transport-Security"
+    ] = "max-age=31536000; includeSubDomains"
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "SAMEORIGIN"
     response.headers["X-XSS-Protection"] = "1; mode=block"

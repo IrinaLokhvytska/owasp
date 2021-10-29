@@ -8,6 +8,7 @@ from web.models import db
 
 class User(db.Model):
     """User Model for storing user related details"""
+
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -15,8 +16,8 @@ class User(db.Model):
     password = db.Column(db.String(255), nullable=False)
     registered_on = db.Column(db.DateTime, nullable=False, default=func.now())
     admin = db.Column(db.Boolean, nullable=False, default=False)
-    todos = db.relationship('ToDo', backref='users', lazy=True)
-    credit_cards = db.relationship('CreditCard', backref='users', lazy=True)
+    todos = db.relationship("ToDo", backref="users", lazy=True)
+    credit_cards = db.relationship("CreditCard", backref="users", lazy=True)
 
     def __init__(self, email, password, admin=False):
         """Init User db model"""
@@ -32,5 +33,5 @@ class User(db.Model):
             "email": self.email,
             "registered_on": self.registered_on,
             "role": "admin" if self.admin else "regular user",
-            "password": self.password
+            "password": self.password,
         }

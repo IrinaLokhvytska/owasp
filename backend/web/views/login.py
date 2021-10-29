@@ -1,9 +1,6 @@
 """View for the /login endpoint"""
 from flask.views import MethodView
-from flask import (
-    render_template, session, request,
-    redirect, url_for, jsonify
-)
+from flask import render_template, session, request, redirect, url_for, jsonify
 
 from web.models import db
 from web.helpers import check_login
@@ -11,9 +8,10 @@ from web.helpers import check_login
 
 class LoginAPI(MethodView):
     """View for the /login endpoint"""
+
     def get(self):
         """Get login page"""
-        return render_template('login.html')
+        return render_template("login.html")
 
     def post(self):
         """Log in user"""
@@ -39,6 +37,7 @@ class LoginAPI(MethodView):
 
 class LogoutAPI(MethodView):
     """Logout view"""
+
     @check_login
     def get(self):
         """Log out user"""

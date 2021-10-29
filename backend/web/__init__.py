@@ -23,6 +23,7 @@ root.addHandler(sh)
 # add endpoints
 add_endpoints_to_app(app)
 
+
 @app.errorhandler(Exception)
 def error_handler(exc):
     """Error Handler"""
